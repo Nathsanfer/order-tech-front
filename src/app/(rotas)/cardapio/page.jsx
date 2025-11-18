@@ -1,8 +1,7 @@
 'use client';
 
 import styles from './cardapio.module.css';
-import { BsBasket3 } from "react-icons/bs";
-import { GiHamburger, GiFrenchFries, GiSodaCan, GiIceCreamCone } from "react-icons/gi";
+import { GiBasket, GiHamburger, GiFrenchFries, GiSodaCan, GiIceCreamCone } from "react-icons/gi";
 
 export default function Cardapio() {
   const categorias = [
@@ -18,7 +17,7 @@ export default function Cardapio() {
       nome: 'X-Burguer duplo prozer',
       descricao: 'Um delicioso Rburguer com cheddar e bacon...',
       preco: 21.90,
-      imagem: '/burger.png',
+      imagem: '/lancheYummy.png',
       categoria: 'lanches'
     },
     {
@@ -26,7 +25,7 @@ export default function Cardapio() {
       nome: 'X-Burguer duplo prozer',
       descricao: 'Um delicioso Rburguer com cheddar e bacon...',
       preco: 21.90,
-      imagem: '/burger.png',
+      imagem: '/lancheYummy.png',
       categoria: 'lanches'
     },
     {
@@ -34,7 +33,7 @@ export default function Cardapio() {
       nome: 'X-Burguer duplo prozer',
       descricao: 'Um delicioso Rburguer com cheddar e bacon...',
       preco: 21.90,
-      imagem: '/burger.png',
+      imagem: '/lancheYummy.png',
       categoria: 'lanches'
     },
     {
@@ -42,7 +41,7 @@ export default function Cardapio() {
       nome: 'X-Burguer duplo prozer',
       descricao: 'Um delicioso Rburguer com cheddar e bacon...',
       preco: 21.90,
-      imagem: '/burger.png',
+      imagem: '/lancheYummy.png',
       categoria: 'lanches'
     }
   ];
@@ -59,20 +58,18 @@ export default function Cardapio() {
 
   return (
     <div className={styles.container}>
-      {/* Header */}
       <header className={styles.header}>
         <div className={styles.logo}>
           <h1>Order Tech</h1>
           <p>Faça seus pedidos</p>
         </div>
         <div className={styles.carrinho}>
-          <BsBasket3 />
+          <GiBasket />
           <span className={styles.badgeCarrinho}>5</span>
         </div>
       </header>
 
       <div className={styles.mainContent}>
-        {/* Sidebar de categorias */}
         <aside className={styles.sidebar}>
           {categorias.map((categoria) => (
             <button key={categoria.id} className={styles.categoriaBtn}>
@@ -84,8 +81,8 @@ export default function Cardapio() {
           ))}
         </aside>
 
-        {/* Conteúdo principal */}
         <main className={styles.content}>
+          <img src="/alberto.png" alt="Hambúrguer Logo" className={styles.marcaDagua} />
           <h2 className={styles.tituloCategoria}>Lanches</h2>
           
           <div className={styles.produtosGrid}>
@@ -96,11 +93,13 @@ export default function Cardapio() {
                   alt={produto.nome}
                   className={styles.produtoImagem}
                 />
-                <h3 className={styles.produtoNome}>{produto.nome}</h3>
-                <p className={styles.produtoDescricao}>{produto.descricao}</p>
-                <p className={styles.produtoPreco}>
-                  R$ {produto.preco.toFixed(2).replace('.', ',')}
-                </p>
+                <div className={styles.produtoInfo}>
+                  <h3 className={styles.produtoNome}>{produto.nome}</h3>
+                  <p className={styles.produtoDescricao}>{produto.descricao}</p>
+                  <p className={styles.produtoPreco}>
+                    R$ {produto.preco.toFixed(2).replace('.', ',')}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

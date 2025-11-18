@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
 }
 
 /* Header */
@@ -121,6 +121,19 @@
   background-color: #ffffff;
   margin-left: 260px;
   margin-top: 6.5rem;
+  position: relative;
+}
+
+.marcaDagua {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: auto;
+  opacity: 0.4;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .tituloCategoria {
@@ -130,15 +143,19 @@
   margin-bottom: 3rem;
   text-align: center;
   font-family: 'Seymour One', cursive;
+  position: relative;
+  z-index: 1;
 }
 
 /* Grid de produtos */
 .produtosGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .produtoCard {
@@ -149,9 +166,10 @@
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  text-align: center;
+  text-align: left;
+  gap: 2rem;
 }
 
 .produtoCard:hover {
@@ -160,10 +178,10 @@
 }
 
 .produtoImagem {
-  width: 150px;
-  height: 150px;
+  width: 280px;
+  height: 280px;
   object-fit: contain;
-  margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .produtoNome {
@@ -188,6 +206,13 @@
   font-weight: bold;
   margin-top: 1rem;
   font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.produtoInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Responsividade */
