@@ -12,6 +12,11 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
 }
 
 .logo h1 {
@@ -38,17 +43,17 @@
 
 .badgeCarrinho {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -5px;
+  right: -5px;
   background-color: #3A6FCF;
   color: white;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: 15px;
+  height: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: 0.55rem;
   font-weight: bold;
 }
 
@@ -62,11 +67,17 @@
 .sidebar {
   background-color: #F4F1E0;
   width: 260px;
-  padding: 2rem 0.75rem;
+  padding: 5.5rem 0.75rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  left: 0;
+  top: 6rem;
+  height: calc(100vh - 6rem);
+  overflow-y: auto;
+  z-index: 100;
 }
 
 .categoriaBtn {
@@ -81,7 +92,7 @@
   align-items: center;
   gap: 0.75rem;
   transition: all 0.2s;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
   font-family: 'Montserrat Alternates', sans-serif;
   text-transform: capitalize;
@@ -94,12 +105,13 @@
 }
 
 .categoriaIcon {
-  font-size: 2.5rem;
+  font-size: 4.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50px;
-  color: #6B9AEB;
+  height: 80px;
+  width: 100%;
+  color: #3A6FCF;
 }
 
 /* Conteúdo principal */
@@ -107,13 +119,15 @@
   flex: 1;
   padding: 2rem;
   background-color: #ffffff;
+  margin-left: 260px;
+  margin-top: 6.5rem;
 }
 
 .tituloCategoria {
   color: #3A6FCF;
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   text-align: center;
   font-family: 'Seymour One', cursive;
 }
