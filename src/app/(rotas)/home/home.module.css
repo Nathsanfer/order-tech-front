@@ -1,8 +1,61 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.images {
+    background-image: url('/images/albertos.png');
+    background-repeat: repeat-y;
+    background-size: contain;
+    background-position: center;
+    width: 600px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.images img {
+    display: none; 
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #333;
-  text-align: center;
-  margin-top: 2rem;
-  font-family: var(--font-seymour);
+    font-size: 5rem;
+    color: var(--color-primary);
+    font-family: var(--font-seymour);
+    margin-top: 6rem;
+}
+
+.subtitle {
+    font-size: 2rem;
+    font-weight: 100;
+    color: var(--color-primary);
+    font-family: var(--font-montserrat);
+    margin-top: -1.5rem;
+}
+
+.button {
+    margin-top: 3rem;
+    padding: 1.2rem 6rem;
+    font-size: 1.2rem;
+    color: #fff;
+    font-family: var(--font-montserrat);
+    background-color: var(--color-primary);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.iconcollection {
+    margin-top: 6rem;
 }
