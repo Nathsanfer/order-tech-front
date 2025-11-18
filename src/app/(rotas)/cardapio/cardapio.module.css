@@ -1,0 +1,204 @@
+.container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Header */
+.header {
+  background-color: #F4F1E0;
+  color: #3A6FCF;
+  padding: 2rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  color: #3A6FCF;
+  font-family: 'Seymour One', cursive;
+}
+
+.logo p {
+  font-size: 0.875rem;
+  margin: 0;
+  color: rgba(58, 111, 207, 0.6);
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.carrinho {
+  position: relative;
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 0.5rem;
+}
+
+.badgeCarrinho {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #3A6FCF;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* Layout principal */
+.mainContent {
+  display: flex;
+  min-height: calc(100vh - 80px);
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #F4F1E0;
+  width: 260px;
+  padding: 2rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.categoriaBtn {
+  background-color: transparent;
+  color: #3A6FCF;
+  border: 2px;
+  border-radius: 12px;
+  padding: 1.25rem 0.75rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Montserrat Alternates', sans-serif;
+  text-transform: capitalize;
+}
+
+.categoriaBtn:hover {
+  background-color: rgba(107, 154, 235, 0.1);
+  border-color: #5A89DA;
+  transform: translateY(-2px);
+}
+
+.categoriaIcon {
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  color: #6B9AEB;
+}
+
+/* Conteúdo principal */
+.content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #ffffff;
+}
+
+.tituloCategoria {
+  color: #3A6FCF;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-family: 'Seymour One', cursive;
+}
+
+/* Grid de produtos */
+.produtosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.produtoCard {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.produtoCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.produtoImagem {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.produtoNome {
+  color: #3A6FCF;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.produtoDescricao {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0.5rem 0;
+  line-height: 1.4;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.produtoPreco {
+  color: #3A6FCF;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .mainContent {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 1rem;
+  }
+
+  .categoriaBtn {
+    min-width: 80px;
+  }
+
+  .produtosGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}
