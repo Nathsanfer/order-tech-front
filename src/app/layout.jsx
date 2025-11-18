@@ -1,4 +1,20 @@
+import { Seymour_One, Montserrat_Alternates } from "next/font/google";
+
 import "./globals.css";
+
+const seymourOne = Seymour_One({
+  subsets: ["latin"],
+  variable: "--font-seymour",
+  display: "swap",
+  weight: ["400"],
+});
+
+const montserratAlternates = Montserrat_Alternates({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  weight: ["400", "700"],
+});
 
 export const metadata = {
     title: "Projeto Order Tech",
@@ -10,13 +26,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html>
-            <head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <link href="https://fonts.googleapis.com/css2?family=Seymour+One&family=Montserrat+Alternates:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-            </head>
-            <body>{children}</body>
+        <html className={`${seymourOne.variable} ${montserratAlternates.variable}`}>
+            <body cz-shortcut-listen="true">
+                <main>{children}</main>
+            </body>
         </html>
     );
 }
