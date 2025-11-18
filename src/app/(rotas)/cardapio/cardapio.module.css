@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
 }
 
 /* Header */
@@ -12,6 +12,11 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
 }
 
 .logo h1 {
@@ -38,17 +43,17 @@
 
 .badgeCarrinho {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -5px;
+  right: -5px;
   background-color: #3A6FCF;
   color: white;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: 15px;
+  height: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: 0.55rem;
   font-weight: bold;
 }
 
@@ -62,11 +67,17 @@
 .sidebar {
   background-color: #F4F1E0;
   width: 260px;
-  padding: 2rem 0.75rem;
+  padding: 5.5rem 0.75rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  left: 0;
+  top: 6rem;
+  height: calc(100vh - 6rem);
+  overflow-y: auto;
+  z-index: 100;
 }
 
 .categoriaBtn {
@@ -81,7 +92,7 @@
   align-items: center;
   gap: 0.75rem;
   transition: all 0.2s;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
   font-family: 'Montserrat Alternates', sans-serif;
   text-transform: capitalize;
@@ -94,12 +105,13 @@
 }
 
 .categoriaIcon {
-  font-size: 2.5rem;
+  font-size: 4.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50px;
-  color: #6B9AEB;
+  height: 80px;
+  width: 100%;
+  color: #3A6FCF;
 }
 
 /* Conteúdo principal */
@@ -107,24 +119,43 @@
   flex: 1;
   padding: 2rem;
   background-color: #ffffff;
+  margin-left: 260px;
+  margin-top: 6.5rem;
+  position: relative;
+}
+
+.marcaDagua {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: auto;
+  opacity: 0.4;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .tituloCategoria {
   color: #3A6FCF;
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   text-align: center;
   font-family: 'Seymour One', cursive;
+  position: relative;
+  z-index: 1;
 }
 
 /* Grid de produtos */
 .produtosGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .produtoCard {
@@ -135,9 +166,10 @@
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  text-align: center;
+  text-align: left;
+  gap: 2rem;
 }
 
 .produtoCard:hover {
@@ -146,10 +178,10 @@
 }
 
 .produtoImagem {
-  width: 150px;
-  height: 150px;
+  width: 280px;
+  height: 280px;
   object-fit: contain;
-  margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .produtoNome {
@@ -174,6 +206,13 @@
   font-weight: bold;
   margin-top: 1rem;
   font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.produtoInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Responsividade */
