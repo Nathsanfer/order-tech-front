@@ -43,6 +43,22 @@ export default function Cardapio() {
       preco: 21.90,
       imagem: '/lancheYummy.png',
       categoria: 'lanches'
+    },
+    {
+      id: 5,
+      nome: 'X-Burguer duplo prozer',
+      descricao: 'Um delicioso Rburguer com cheddar e bacon...',
+      preco: 21.90,
+      imagem: '/lancheYummy.png',
+      categoria: 'lanches'
+    },
+    {
+      id: 6,
+      nome: 'X-Burguer duplo prozer',
+      descricao: 'Um delicioso Rburguer com cheddar e bacon...',
+      preco: 21.90,
+      imagem: '/lancheYummy.png',
+      categoria: 'lanches'
     }
   ];
 
