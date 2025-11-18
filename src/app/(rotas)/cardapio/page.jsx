@@ -82,7 +82,7 @@ export default function Cardapio() {
         </aside>
 
         <main className={styles.content}>
-          <img src="/alberto.png" alt="Hambúrguer Logo" className={styles.marcaDagua} />
+          <img src="/images/alberto.png" alt="Hambúrguer Logo" className={styles.marcaDagua} />
           <h2 className={styles.tituloCategoria}>Lanches</h2>
           
           <div className={styles.produtosGrid}>
