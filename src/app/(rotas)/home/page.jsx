@@ -22,6 +22,7 @@ export default function Home() {
           priority
         />
       </div>
+      
       <div className={styles.content}>
         <Image
           src="/icons/icons-colecao.png"

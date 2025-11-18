@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
 
   const handleSubmit = (e) => {
@@ -16,32 +17,51 @@ export default function Login() {
     router.push("/home");
   };
 
+  const handleCreateAccount = () => {
+    // Navegação para criar conta
+    console.log("Criar nova conta");
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.leftSection}>
-        <div className={styles.logoContainer}>
+
+      <div className={styles.containerLeft}>
+        <Image
+          src="/images/albertos.png"
+          alt="OrderTech"
+          width={300}
+          height={300}
+          className={styles.logo}
+          priority
+        />
+      </div>
+
+      <div className={styles.containerRight}>
+        
+        <form className={styles.form} action="">
+          {/* Personagem do hambúrguer */}
+        <div className={styles.characterContainer}>
           <Image
-            src="/albertos.png"
-            alt="Alberto's Restaurant"
+            src="/images/albertopng.png"
+            alt="Personagem Alberto"
             width={200}
-            height={200}
-            className={styles.logo}
+            height={160}
+            className={styles.character}
             priority
           />
-          <h1 className={styles.brandTitle}>Alberto&apos;s</h1>
-          <p className={styles.brandSubtitle}>Sabor Autêntico Italiano</p>
         </div>
-      </div>
-      
-      <div className={styles.rightSection}>
+        
+        {/* Texto de boas-vindas */}
+        <h1 className={styles.welcomeText}>Bem-Vindo de Volta!</h1>
+        
+        {/* Card do formulário */}
         <div className={styles.loginCard}>
-          <h2 className={styles.loginTitle}>Bem-vindo de volta!</h2>
-          <p className={styles.loginSubtitle}>Faça login para continuar</p>
+          <h2 className={styles.loginTitle}>Login</h2>
           
           <form onSubmit={handleSubmit} className={styles.loginForm}>
             <div className={styles.inputGroup}>
               <label htmlFor="email" className={styles.label}>
-                E-mail
+                Email:
               </label>
               <input
                 type="email"
@@ -49,14 +69,13 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.input}
-                placeholder="seu@email.com"
                 required
               />
             </div>
             
             <div className={styles.inputGroup}>
               <label htmlFor="senha" className={styles.label}>
-                Senha
+                Senha:
               </label>
               <input
                 type="password"
@@ -64,34 +83,42 @@ export default function Login() {
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
                 className={styles.input}
-                placeholder="••••••••"
                 required
               />
             </div>
             
-            <div className={styles.rememberForgot}>
+            <div className={styles.checkboxContainer}>
               <label className={styles.rememberMe}>
-                <input type="checkbox" />
-                <span>Lembrar-me</span>
+                <input 
+                  type="checkbox" 
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className={styles.checkbox}
+                />
+                <span>Lembre de mim</span>
               </label>
               <a href="#" className={styles.forgotPassword}>
-                Esqueceu a senha?
+                Esqueci minha senha
               </a>
             </div>
             
-            <button type="submit" src="/home" className={styles.loginButton}>
+            <button type="submit" className={styles.loginButton}>
               Entrar
             </button>
           </form>
-          
-          <div className={styles.divider}>
-            <span>ou</span>
-          </div>
-          
-          <button className={styles.registerButton}>
-            Criar nova conta
-          </button>
         </div>
+        
+        {/* Divisor */}
+        <div className={styles.divider}>
+          <span>OU</span>
+        </div>
+        
+        {/* Botão Criar Conta */}
+        <button onClick={handleCreateAccount} className={styles.createAccountButton}>
+          Criar Conta
+        </button>
+        </form>
+
       </div>
     </div>
   );
