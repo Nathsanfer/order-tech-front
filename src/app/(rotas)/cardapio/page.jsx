@@ -16,21 +16,19 @@ export default function Cardapio() {
   ];
 
   const [produtos, setProdutos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [usedUrl, setUsedUrl] = useState(null);
-  const [attemptedLogs, setAttemptedLogs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(categorias[0].nome);
   const [cartCount, setCartCount] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
     // sincronizar badge do carrinho com localStorage
+    let onStorage = null;
     try {
       setCartCount(getCartCount());
-      const onStorage = () => setCartCount(getCartCount());
+      onStorage = () => setCartCount(getCartCount());
       window.addEventListener('storage', onStorage);
-      return () => window.removeEventListener('storage', onStorage);
     } catch (e) {
       // ignore
     }
@@ -39,8 +37,6 @@ export default function Cardapio() {
       setError(null);
       let lastErr = null;
       for (const url of urls) {
-        // record attempt
-        setAttemptedLogs((s) => [...s, `Tentativa: ${url}`]);
         try {
           // eslint-disable-next-line no-console
           console.log('[Cardapio] tentando', url);
@@ -49,35 +45,44 @@ export default function Cardapio() {
           const data = await res.json();
           if (Array.isArray(data)) {
             setProdutos(data);
-            setUsedUrl(url);
-            setAttemptedLogs((s) => [...s, `Sucesso: ${url}`]);
             setLoading(false);
             return;
           }
           if (data && Array.isArray(data.items)) {
             setProdutos(data.items);
-            setUsedUrl(url);
             setLoading(false);
             return;
           }
           if (data && Array.isArray(data.data)) {
             setProdutos(data.data);
-            setUsedUrl(url);
             setLoading(false);
             return;
           }
+            if (Array.isArray(data)) {
+              setProdutos(data);
+              setLoading(false);
+              return;
+            }
+            if (data && Array.isArray(data.items)) {
+              setProdutos(data.items);
+              setLoading(false);
+              return;
+            }
+            if (data && Array.isArray(data.data)) {
+              setProdutos(data.data);
+              setLoading(false);
+              return;
+            }
           lastErr = new Error(`Resposta inválida do servidor em ${url}`);
         } catch (e) {
           // log each failure to help diagnose which endpoint fails and why
           // eslint-disable-next-line no-console
           console.warn('[Cardapio] fetch failed for', url, e?.message || e);
-          setAttemptedLogs((s) => [...s, `Falha: ${url} -> ${e?.message || e}`]);
           lastErr = e;
         }
       }
       // eslint-disable-next-line no-console
       console.error('[Cardapio] nenhuma URL funcionou:', lastErr?.message || lastErr);
-      setAttemptedLogs((s) => [...s, `Nenhuma URL funcionou: ${lastErr?.message || lastErr}`]);
       setError(lastErr?.message || 'Erro ao buscar o menu');
       setLoading(false);
     }
@@ -96,6 +101,12 @@ export default function Cardapio() {
     ];
 
     fetchWithFallback(candidateUrls);
+
+    return () => {
+      try {
+        if (onStorage) window.removeEventListener('storage', onStorage);
+      } catch (e) {}
+    };
   }, []);
 
   const getIconeCategoria = (icone) => {
@@ -160,15 +171,6 @@ export default function Cardapio() {
 
           {loading && <p>Carregando itens...</p>}
           {error && <p style={{ color: 'red' }}>Erro: {error}</p>}
-          {usedUrl && <p style={{ color: 'green' }}>Usado: {usedUrl}</p>}
-          {attemptedLogs.length > 0 && (
-            <div style={{ marginTop: 8, maxHeight: 120, overflow: 'auto', background: '#fff8e1', padding: 8, borderRadius: 6 }}>
-              <strong>Logs:</strong>
-              <ul style={{ margin: '6px 0', paddingLeft: 16 }}>
-                {attemptedLogs.map((l, i) => <li key={i} style={{ fontSize: 12 }}>{l}</li>)}
-              </ul>
-            </div>
-          )}
 
           <div className={styles.produtosGrid}>
             {(produtosFiltrados.length > 0 ? produtosFiltrados : [])
