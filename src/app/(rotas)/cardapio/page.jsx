@@ -12,69 +12,56 @@ export default function Cardapio() {
     { id: 'sobremesas', nome: 'Sobremesas', icone: 'icecream' }
   ];
 
-  const [produtos, setProdutos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [usedUrl, setUsedUrl] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(categorias[0].nome);
-
-  useEffect(() => {
-    async function fetchWithFallback(urls) {
-      setLoading(true);
-      setError(null);
-      let lastErr = null;
-      for (const url of urls) {
-        try {
-          const res = await fetch(url);
-          if (!res.ok) throw new Error(`Erro HTTP ${res.status}`);
-          const data = await res.json();
-          if (Array.isArray(data)) {
-            setProdutos(data);
-            setUsedUrl(url);
-            setLoading(false);
-            return;
-          }
-          if (data && Array.isArray(data.items)) {
-            setProdutos(data.items);
-            setUsedUrl(url);
-            setLoading(false);
-            return;
-          }
-          if (data && Array.isArray(data.data)) {
-            setProdutos(data.data);
-            setUsedUrl(url);
-            setLoading(false);
-            return;
-          }
-          lastErr = new Error(`Resposta inválida do servidor em ${url}`);
-        } catch (e) {
-          // log each failure to help diagnose which endpoint fails and why
-          // eslint-disable-next-line no-console
-          console.warn('[Cardapio] fetch failed for', url, e?.message || e);
-          lastErr = e;
-        }
-      }
-      // eslint-disable-next-line no-console
-      console.error('[Cardapio] nenhuma URL funcionou:', lastErr?.message || lastErr);
-      setError(lastErr?.message || 'Erro ao buscar o menu');
-      setLoading(false);
+  const produtos = [
+    {
+      id: 1,
+      nome: 'X-Burguer duplo prozer',
+      descricao: 'Um delicioso Rburguer com cheddar e bacon...',
+      preco: 21.90,
+      imagem: '/lancheYummy.png',
+      categoria: 'lanches'
+    },
+    {
+      id: 2,
+      nome: 'X-Burguer duplo prozer',
+      descricao: 'Um delicioso Rburguer com cheddar e bacon...',
+      preco: 21.90,
+      imagem: '/lancheYummy.png',
+      categoria: 'lanches'
+    },
+    {
+      id: 3,
+      nome: 'X-Burguer duplo prozer',
+      descricao: 'Um delicioso Rburguer com cheddar e bacon...',
+      preco: 21.90,
+      imagem: '/lancheYummy.png',
+      categoria: 'lanches'
+    },
+    {
+      id: 4,
+      nome: 'X-Burguer duplo prozer',
+      descricao: 'Um delicioso Rburguer com cheddar e bacon...',
+      preco: 21.90,
+      imagem: '/lancheYummy.png',
+      categoria: 'lanches'
+    },
+    {
+      id: 5,
+      nome: 'X-Burguer duplo prozer',
+      descricao: 'Um delicioso Rburguer com cheddar e bacon...',
+      preco: 21.90,
+      imagem: '/lancheYummy.png',
+      categoria: 'lanches'
+    },
+    {
+      id: 6,
+      nome: 'X-Burguer duplo prozer',
+      descricao: 'Um delicioso Rburguer com cheddar e bacon...',
+      preco: 21.90,
+      imagem: '/lancheYummy.png',
+      categoria: 'lanches'
     }
-
-    const candidateUrls = [
-      // try same-origin (Next.js) and common backend variants
-      '/api/menu',
-      '/menu',
-      'http://localhost:5001/api/menu',
-      'http://127.0.0.1:5001/api/menu',
-      'http://localhost:5001/menu',
-      'http://127.0.0.1:5001/menu',
-      'http://localhost:4001/api/menu',
-      'http://localhost:4001/menu',
-      'http://localhost:3001/api/menu'
-    ];
-
-    fetchWithFallback(candidateUrls);
-  }, []);
+  ];
 
   const getIconeCategoria = (icone) => {
     switch(icone) {
@@ -85,23 +72,6 @@ export default function Cardapio() {
       default: return null;
     }
   };
-
-  const typeMatchesCategory = (type, categoriaNome) => {
-    if (!type) return false;
-    const t = type.toString().toLowerCase();
-    const c = categoriaNome.toLowerCase();
-    if (c.includes('lanche')) return t.includes('lanche') || t.includes('burger') || t.includes('hamburg');
-    if (c.includes('complement')) return t.includes('acompanh') || t.includes('complement');
-    if (c.includes('bebida')) return t.includes('bebida') || t.includes('drink') || t.includes('soda');
-    if (c.includes('sobremesa')) return t.includes('sobremesa');
-    return false;
-  };
-
-  const produtosArray = Array.isArray(produtos) ? produtos : [];
-  const produtosFiltrados = produtosArray.filter((p) => {
-    const candidato = p.type || p.tipo || p.categoria || p.category || p.name || p.nome || '';
-    return typeMatchesCategory(candidato, selectedCategory);
-  });
 
   return (
     <div className={styles.container}>
@@ -134,37 +104,25 @@ export default function Cardapio() {
 
         <main className={styles.content}>
           <img src="/images/alberto.png" alt="Hambúrguer Logo" className={styles.marcaDagua} />
-          <h2 className={styles.tituloCategoria}>{selectedCategory}</h2>
-
-          {loading && <p>Carregando itens...</p>}
-          {error && <p style={{ color: 'red' }}>Erro: {error}</p>}
-
+          <h2 className={styles.tituloCategoria}>Lanches</h2>
+          
           <div className={styles.produtosGrid}>
-            {(produtosFiltrados.length > 0 ? produtosFiltrados : [])
-              .map((produto) => {
-                const nome = produto.name || produto.nome || 'Item';
-                const descricao = produto.description || produto.descricao || '';
-                const preco = produto.cost ?? produto.preco ?? 0;
-                const imagem = produto.imageUrl || produto.imagem || '/lancheYummy.png';
-                const key = produto.id_item || produto.id || produto._id || `${nome}-${preco}`;
-
-                return (
-                  <div key={key} className={styles.produtoCard}>
-                    <img
-                      src={imagem}
-                      alt={nome}
-                      className={styles.produtoImagem}
-                    />
-                    <div className={styles.produtoInfo}>
-                      <h3 className={styles.produtoNome}>{nome}</h3>
-                      <p className={styles.produtoDescricao}>{descricao}</p>
-                      <p className={styles.produtoPreco}>
-                        R$ {Number(preco).toFixed(2).replace('.', ',')}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+            {produtos.map((produto) => (
+              <div key={produto.id} className={styles.produtoCard}>
+                <img 
+                  src={produto.imagem} 
+                  alt={produto.nome}
+                  className={styles.produtoImagem}
+                />
+                <div className={styles.produtoInfo}>
+                  <h3 className={styles.produtoNome}>{produto.nome}</h3>
+                  <p className={styles.produtoDescricao}>{produto.descricao}</p>
+                  <p className={styles.produtoPreco}>
+                    R$ {produto.preco.toFixed(2).replace('.', ',')}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </main>
       </div>

@@ -1,110 +1,77 @@
 .container {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
-  width: 100%;
 }
 
-.leftSection {
+.containerLeft {
+  background-image: url('/images/albertos.png');
+    background-repeat: repeat-y;
+    background-size: contain;
+    background-position: center;
+    width: 600px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerRight {
   flex: 1;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  position: relative;
-  overflow: hidden;
 }
 
-.leftSection::before {
-  content: '';
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  top: -150px;
-  left: -150px;
-}
-
-.leftSection::after {
-  content: '';
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  bottom: -100px;
-  right: -100px;
-}
-
-.logoContainer {
-  text-align: center;
-  z-index: 1;
-  animation: fadeInUp 0.8s ease-out;
-}
-
-.logo {
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 25rem;
+  height: 48rem;
   border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
-}
-
-.logo:hover {
-  transform: scale(1.05);
-}
-
-.brandTitle {
-  color: white;
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.brandSubtitle {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.3rem;
-  font-weight: 300;
-  letter-spacing: 2px;
-}
-
-.rightSection {
-  flex: 1;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: #f8f9fa;
+  background-color: var(--color-secondary);
+}
+
+.img {
+  display: none; 
+}
+
+.welcomeText {
+  color: #3A6FCF;
+  font-family: var(--font-seymour);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .loginCard {
-  background: white;
-  padding: 3rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  background: #3A6FCF;
+  padding: 2rem;
+  border-radius: 15px;
   width: 100%;
-  max-width: 450px;
-  animation: fadeIn 0.8s ease-out;
+  max-width: 350px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .loginTitle {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 0.5rem;
-}
-
-.loginSubtitle {
-  color: #666;
-  margin-bottom: 2rem;
+  color: white;
+  font-family: var(--font-seymour);
   font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .loginForm {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .inputGroup {
@@ -114,87 +81,87 @@
 }
 
 .label {
-  font-weight: 600;
-  color: #333;
+  color: white;
+  font-family: var(--font-montserrat);
   font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .input {
-  padding: 0.875rem 1rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
   font-size: 1rem;
-  transition: all 0.3s ease;
   outline: none;
+  background: white;
 }
 
 .input:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
-.input::placeholder {
-  color: #aaa;
-}
-
-.rememberForgot {
+.checkboxContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
+  align-items: flex-start;
+  margin: 0.5rem 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--font-montserrat);
 }
 
 .rememberMe {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: white;
+  font-size: 0.80rem;
   cursor: pointer;
-  color: #666;
 }
 
-.rememberMe input[type="checkbox"] {
+.checkbox {
+  width: 16px;
+  height: 16px;
   cursor: pointer;
-  width: 18px;
-  height: 18px;
 }
 
 .forgotPassword {
-  color: #667eea;
+  color: white;
+  font-size: 0.70rem;
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
+  opacity: 0.9;
 }
 
 .forgotPassword:hover {
-  color: #764ba2;
+  opacity: 1;
+  text-decoration: underline;
 }
 
 .loginButton {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: white;
+  color: #3A6FCF;
   border: none;
-  padding: 1rem;
-  border-radius: 10px;
+  padding: 0.875rem;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 0.5rem;
+  font-family: var(--font-seymour);
 }
 
 .loginButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-}
-
-.loginButton:active {
-  transform: translateY(0);
+  background: #f8f9fa;
+  transform: translateY(-1px);
 }
 
 .divider {
   position: relative;
   text-align: center;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
+  width: 100%;
+  max-width: 350px;
 }
 
 .divider::before {
@@ -203,110 +170,66 @@
   left: 0;
   right: 0;
   top: 50%;
-  height: 1px;
-  background: #e0e0e0;
+  height: 2px;
+  background: #3A6FCF;
 }
 
 .divider span {
-  background: white;
+  background: #F4F1E0;
   padding: 0 1rem;
-  position: relative;
-  color: #999;
+  color: #3A6FCF;
+  font-weight: 600;
   font-size: 0.9rem;
+  position: relative;
 }
 
-.registerButton {
-  width: 100%;
-  background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
-  padding: 1rem;
-  border-radius: 10px;
+.createAccountButton {
+  background: #3A6FCF;
+  color: white;
+  border: none;
+  padding: 0.875rem 2rem;
+  border-radius: 25px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 350px;
+  font-family: var(--font-seymour);
 }
 
-.registerButton:hover {
-  background: #667eea;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+.createAccountButton:hover {
+  background: #2A5FBF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(58, 111, 207, 0.3);
 }
 
-.registerButton:active {
-  transform: translateY(0);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 968px) {
-  .container {
-    flex-direction: column;
-  }
-
-  .leftSection {
-    min-height: 40vh;
-  }
-
-  .brandTitle {
-    font-size: 2.5rem;
-  }
-
-  .brandSubtitle {
-    font-size: 1rem;
-  }
-
-  .loginCard {
-    padding: 2rem;
-  }
-
-  .loginTitle {
-    font-size: 1.5rem;
-  }
-}
-
+/* Responsividade */
 @media (max-width: 480px) {
-  .leftSection {
+  .container {
     padding: 1rem;
   }
-
-  .rightSection {
-    padding: 1rem;
-  }
-
+  
   .loginCard {
     padding: 1.5rem;
+    max-width: 300px;
   }
-
-  .brandTitle {
-    font-size: 2rem;
+  
+  .welcomeText {
+    font-size: 1.25rem;
   }
-
-  .rememberForgot {
+  
+  .checkboxContainer {
     flex-direction: column;
-    gap: 0.5rem;
     align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .createAccountButton {
+    max-width: 300px;
+  }
+  
+  .divider {
+    max-width: 300px;
   }
 }
