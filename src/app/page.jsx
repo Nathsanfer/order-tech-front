@@ -38,8 +38,7 @@ export default function Login() {
 
       <div className={styles.containerRight}>
         
-        <form className={styles.form} action="">
-          {/* Personagem do hambúrguer */}
+        {/* Personagem do hambúrguer */}
         <div className={styles.characterContainer}>
           <Image
             src="/images/albertopng.png"
@@ -117,7 +116,6 @@ export default function Login() {
         <button onClick={handleCreateAccount} className={styles.createAccountButton}>
           Criar Conta
         </button>
-        </form>
 
       </div>
     </div>
