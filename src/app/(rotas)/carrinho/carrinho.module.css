@@ -1,0 +1,173 @@
+/* Estilo inspirado na página de login */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  background-color: #F4F1E0;
+  background-image: linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px),
+                    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.card {
+  width: 100%;
+  max-width: 980px;
+  background: transparent;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+}
+
+.cartListCard {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.summaryCard {
+  background: #3A6FCF;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.totalLarge { font-weight: 900; font-size: 28px; color: #fff; }
+
+.cartList {
+  display: grid;
+  gap: 12px;
+}
+
+.cartItem {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.itemImage {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.itemInfo {
+  flex: 1;
+}
+
+.itemName { font-weight: 700; margin-bottom: 6px; }
+.itemPrice { color: #666; font-size: 0.95rem; }
+
+.qtyControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  border: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 140ms ease, box-shadow 160ms ease;
+}
+
+.btn:active { transform: translateY(1px) scale(0.995); }
+
+.qtyBtn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f4ff;
+  color: #214a86;
+  border: 1px solid rgba(58,111,207,0.12);
+  font-weight: 700;
+}
+
+.primaryBtn {
+  background: white;
+  color: #3A6FCF;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.secondaryBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: white;
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+}
+
+.removeBtn {
+  background: #ffecec;
+  border: 1px solid #ffbcbc;
+  color: #a80000;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+/* animação ao adicionar/remover/alterar quantidade */
+.pop {
+  animation: pop 360ms ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); box-shadow: 0 8px 20px rgba(58,111,207,0.18); }
+  100% { transform: scale(1); }
+}
+
+.dessertRow {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dessertScroller {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 4px;
+}
+
+.dessertCard {
+  min-width: 180px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.dessertImage { width: 140px; height: 100px; object-fit: cover; border-radius: 8px; }
+
+.dessertName { font-weight: 700; font-size: 0.95rem; text-align: center; }
+
+.dessertAddBtn { background: #3A6FCF; color: white; padding: 6px 10px; border-radius: 8px; border: none; cursor: pointer; font-weight: 700; }
+
+@media (max-width: 880px) {
+  .card { grid-template-columns: 1fr; }
+}

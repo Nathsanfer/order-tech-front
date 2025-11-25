@@ -1,66 +1,131 @@
- 'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import styles from '../cardapio/cardapio.module.css';
-import { getCart, removeFromCart, updateQty, clearCart } from '../../../lib/cart';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from "react";
+import styles from "./carrinho.module.css";
+import { getCart, removeFromCart, updateQty, clearCart, addToCart } from "../../../lib/cart";
+import { useRouter } from "next/navigation";
 
 export default function CarrinhoPage() {
   const [cart, setCart] = useState([]);
+  const [anim, setAnim] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     setCart(getCart());
   }, []);
 
+  function markAnim(id) {
+    setAnim((s) => Array.from(new Set([...s, id])));
+    setTimeout(() => setAnim((s) => s.filter((x) => x !== id)), 420);
+  }
+
   function handleRemove(id) {
     const next = removeFromCart(id);
     setCart(next);
-    // dispatch storage event
-    try { window.dispatchEvent(new Event('storage')); } catch(e){}
+    markAnim(id);
+    try {
+      window.dispatchEvent(new Event("storage"));
+    } catch (e) {}
   }
 
   function handleQty(id, qty) {
+    if (qty < 1) return;
     const next = updateQty(id, qty);
     setCart(next);
+    markAnim(id);
+    try {
+      window.dispatchEvent(new Event("storage"));
+    } catch (e) {}
+  }
+
+  // exemplo simples de sobremesas — você pode trocar por dados reais do backend
+  const desserts = [
+    { id: 's-1', name: 'Pudim de Leite', price: 6.5, image: '/images/lancheYummy.png' },
+    { id: 's-2', name: 'Brownie com Sorvete', price: 9.0, image: '/images/lancheYummy.png' },
+    { id: 's-3', name: 'Mousse de Chocolate', price: 7.0, image: '/images/lancheYummy.png' },
+    { id: 's-4', name: 'Cheesecake', price: 8.5, image: '/images/lancheYummy.png' }
+  ];
+
+  function handleAddDessert(d) {
+    addToCart({ id: d.id, name: d.name, price: d.price, image: d.image });
+    const next = getCart();
+    setCart(next);
+    markAnim(d.id);
     try { window.dispatchEvent(new Event('storage')); } catch(e){}
   }
 
-  if (!cart || cart.length === 0) return (
-    <div className={styles.container} style={{ padding: 24 }}>
-      <h2>Seu carrinho está vazio</h2>
-      <button className={styles.categoriaBtn} onClick={() => router.push('/cardapio')}>Voltar ao cardápio</button>
-    </div>
-  );
-
-  const total = cart.reduce((s,p) => s + (p.price * (p.qty||1)), 0);
-
-  return (
-    <div className={styles.container} style={{ padding: 24 }}>
-      <h2>Meu Carrinho</h2>
-      <div style={{ display: 'grid', gap: 12 }}>
-        {cart.map((item) => (
-          <div key={item.id} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-            <img src={item.image} alt={item.name} style={{ width: 80, height: 80, objectFit: 'cover' }} />
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 700 }}>{item.name}</div>
-              <div>R$ {Number(item.price).toFixed(2).replace('.', ',')}</div>
-              <div style={{ marginTop: 8 }}>
-                <button onClick={() => handleQty(item.id, (item.qty||1) - 1)}>-</button>
-                <span style={{ margin: '0 8px' }}>{item.qty}</span>
-                <button onClick={() => handleQty(item.id, (item.qty||1) + 1)}>+</button>
-              </div>
-            </div>
-            <div>
-              <button onClick={() => handleRemove(item.id)} style={{ background: 'transparent', border: '1px solid #ddd', padding: '6px 10px', borderRadius: 6 }}>Remover</button>
+  if (!cart || cart.length === 0)
+    return (
+      <div className={styles.container}>
+        <div className={styles.card}>
+          <div className={styles.cartListCard} style={{ textAlign: "center", padding: 48 }}>
+            <h2>Seu carrinho está vazio</h2>
+            <div style={{ marginTop: 16 }}>
+              <button className={`${styles.btn} ${styles.primaryBtn}`} onClick={() => router.push("/cardapio")}>
+                Voltar ao cardápio
+              </button>
             </div>
           </div>
-        ))}
+        </div>
       </div>
-      <div style={{ marginTop: 18, fontWeight: 700 }}>Total: R$ {Number(total).toFixed(2).replace('.', ',')}</div>
-      <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
-        <button className={styles.addBtn} onClick={() => { clearCart(); setCart([]); try { window.dispatchEvent(new Event('storage')); } catch(e){} }}>Limpar carrinho</button>
-        <button className={styles.categoriaBtn} onClick={() => router.push('/cardapio')}>Continuar comprando</button>
+    );
+
+  const total = cart.reduce((s, p) => s + p.price * (p.qty || 1), 0);
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <div className={styles.cartListCard}>
+          <h2 style={{ marginTop: 0 }}>Meu Carrinho</h2>
+          <div className={styles.cartList}>
+            {cart.map((item) => (
+              <div key={item.id} className={`${styles.cartItem} ${anim.includes(item.id) ? styles.pop : ""}`}>
+                <img src={item.image} alt={item.name} className={styles.itemImage} />
+                <div className={styles.itemInfo}>
+                  <div className={styles.itemName}>{item.name}</div>
+                  <div className={styles.itemPrice}>R$ {Number(item.price).toFixed(2).replace('.', ',')}</div>
+                  <div style={{ marginTop: 8 }} className={styles.qtyControls}>
+                    <button className={`${styles.btn} ${styles.qtyBtn}`} onClick={() => handleQty(item.id, (item.qty || 1) - 1)}>-</button>
+                    <div style={{ minWidth: 28, textAlign: 'center' }}>{item.qty || 1}</div>
+                    <button className={`${styles.btn} ${styles.qtyBtn}`} onClick={() => handleQty(item.id, (item.qty || 1) + 1)}>+</button>
+                  </div>
+                </div>
+                <div>
+                  <button className={styles.removeBtn} onClick={() => handleRemove(item.id)}>Remover</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.summaryCard}>
+          <div>
+            <div style={{ fontSize: 14, opacity: 0.9 }}>Resumo do pedido</div>
+            <div className={styles.totalLarge} style={{ marginTop: 8 }}>R$ {Number(total).toFixed(2).replace('.', ',')}</div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <button className={`${styles.btn} ${styles.secondaryBtn}`} onClick={() => router.push('/cardapio')}>Continuar comprando</button>
+            <button className={`${styles.btn} ${styles.primaryBtn}`} onClick={() => { clearCart(); setCart([]); try { window.dispatchEvent(new Event('storage')); } catch(e){} }}>Limpar carrinho</button>
+          </div>
+        </div>
+        {/* seção de sobremesas */}
+        <div style={{ gridColumn: '1 / -1', marginTop: 12 }} className={styles.dessertRow}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h3 style={{ margin: 0 }}>Adicione uma sobremesa!</h3>
+            <small style={{ color: '#666' }}>Rolagem horizontal →</small>
+          </div>
+          <div className={styles.dessertScroller}>
+            {desserts.map((d) => (
+              <div key={d.id} className={styles.dessertCard}>
+                <img src={d.image} alt={d.name} className={styles.dessertImage} />
+                <div className={styles.dessertName}>{d.name}</div>
+                <div style={{ color: '#666' }}>R$ {Number(d.price).toFixed(2).replace('.', ',')}</div>
+                <button className={styles.dessertAddBtn} onClick={() => handleAddDessert(d)}>Adicionar</button>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
