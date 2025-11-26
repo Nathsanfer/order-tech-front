@@ -129,7 +129,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
+  width: 600px;
   height: auto;
   opacity: 0.4;
   z-index: 0;
@@ -159,7 +159,7 @@
 }
 
 .produtoCard {
-  background-color: white;
+  background-color: transparent;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
