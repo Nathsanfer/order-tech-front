@@ -11,51 +11,6 @@ export default function Cardapio() {
     { id: 'bebidas', nome: 'Bebidas', icone: 'soda' },
     { id: 'sobremesas', nome: 'Sobremesas', icone: 'icecream' }
   ];
-
-  const [produtos, setProdutos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [usedUrl, setUsedUrl] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(categorias[0].nome);
-
-  useEffect(() => {
-    async function fetchWithFallback(urls) {
-      setLoading(true);
-      setError(null);
-      let lastErr = null;
-      for (const url of urls) {
-        try {
-          const res = await fetch(url);
-          if (!res.ok) throw new Error(`Erro HTTP ${res.status}`);
-          const data = await res.json();
-          // garantir que recebemos um array
-          if (Array.isArray(data)) {
-            setProdutos(data);
-            setUsedUrl(url);
-            setLoading(false);
-            return;
-          }
-          // algumas APIs retornam { items: [...] } ou { data: [...] }
-          if (data && Array.isArray(data.items)) {
-            setProdutos(data.items);
-            setUsedUrl(url);
-            setLoading(false);
-            return;
-          }
-          if (data && Array.isArray(data.data)) {
-            setProdutos(data.data);
-            setUsedUrl(url);
-            setLoading(false);
-            return;
-          }
-          // resposta inesperada, continuar para próximo fallback
-          lastErr = new Error(`Resposta inválida do servidor em ${url}`);
-        } catch (e) {
-          lastErr = e;
-        }
-      }
-      setError(lastErr?.message || 'Erro ao buscar o menu');
-      setLoading(false);
     }
 
     const candidateUrls = [
