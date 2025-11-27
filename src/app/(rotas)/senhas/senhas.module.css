@@ -1,3 +1,6 @@
+body{
+  overflow-y: hidden;
+}
 /* ---- CONTAINER GERAL ---- */
 .container {
   width: 100%;
@@ -6,13 +9,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+   
 }
 
 /* ---- PADRÕES SUPERIOR E INFERIOR ---- */
 .patternTop,
 .patternBottom {
   width: 100%;
-  height: 230px;
+  height: 18.5vh; 
   background-image: url('/images/albertos.png');
   background-size: contain;
   background-repeat: repeat-x;
