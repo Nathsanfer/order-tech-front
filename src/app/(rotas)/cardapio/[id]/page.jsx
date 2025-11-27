@@ -52,13 +52,27 @@ export default function DetalheProduto() {
 
               if (produtoEncontrado) {
                 console.log('✅ Produto encontrado:', produtoEncontrado);
+                
+                // Processa a imagem
+                const imagemOriginal = produtoEncontrado.imageUrl || produtoEncontrado.imagem || '';
+                let imagemFinal = '/images/lancheYummy.png';
+                if (imagemOriginal) {
+                  const imagemLimpa = imagemOriginal.replace('/public', '');
+                  if (!imagemLimpa.startsWith('http')) {
+                    const baseUrl = url.replace('/menu', '');
+                    imagemFinal = `${baseUrl}${imagemLimpa}`;
+                  } else {
+                    imagemFinal = imagemLimpa;
+                  }
+                }
+                
                 // Normaliza os dados para o formato esperado
                 const produtoNormalizado = {
                   id: produtoEncontrado.id_item || produtoEncontrado.id,
                   nome: produtoEncontrado.name || produtoEncontrado.nome,
                   descricao: produtoEncontrado.description || produtoEncontrado.descricao || '',
                   preco: produtoEncontrado.cost ?? produtoEncontrado.preco ?? 0,
-                  imagem: produtoEncontrado.imageUrl || produtoEncontrado.imagem || '/lancheYummy.png'
+                  imagem: imagemFinal
                 };
                 
                 setProduto(produtoNormalizado);
