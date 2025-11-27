@@ -19,6 +19,10 @@ export default function Cardapio() {
     { id: 'sobremesas', nome: 'Sobremesas', icone: 'icecream' }
   ];
 
+  const handleCarrinhoClick = () => {
+    router.push('/carrinho');
+  };
+
   useEffect(() => {
     const fetchWithFallback = async (urls) => {
       console.log('🔍 Iniciando busca de produtos...');
@@ -41,7 +45,7 @@ export default function Cardapio() {
               produtosArray = data;
             } else if (data && typeof data === 'object') {
               // Se é um objeto, tenta encontrar o array dentro dele
-              console.log('� Procurando array dentro do objeto...');
+              console.log('🔎 Procurando array dentro do objeto...');
               console.log('🔑 Chaves do objeto:', Object.keys(data));
               
               // Tenta diferentes possíveis chaves
@@ -134,7 +138,11 @@ export default function Cardapio() {
           <h1>Order Tech</h1>
           <p>Faça seus pedidos</p>
         </div>
-        <div className={styles.carrinho}>
+        <div 
+          className={styles.carrinho}
+          onClick={handleCarrinhoClick}
+          style={{ cursor: 'pointer' }}
+        >
           <GiBasket />
           <span className={styles.badgeCarrinho}>0</span>
         </div>

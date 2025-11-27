@@ -1,0 +1,256 @@
+.carrinhoContainer {
+  min-height: 100vh;
+  background-color: #FFF8E8;
+  position: relative;
+}
+
+.carrinhoHeader {
+  padding: 2rem 2rem 1rem;
+}
+
+.voltarBtn {
+  background-color: #4169E1;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 10;
+  font-family: var(--font-montserrat);
+}
+
+.carrinhoMain {
+  display: flex;
+  min-height: calc(100vh - 100px);
+  position: relative;
+}
+
+.formasPagamento {
+  flex: 1;
+  padding: 2rem;
+  max-width: calc(100% - 535px);
+}
+
+.formasPagamento > * {
+  display: flex;
+  justify-content: center;
+  max-width: 700px;
+  margin: 0 0 0 8rem;
+}
+
+.sidebarWrapper {
+  display: flex;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+}
+
+.imagenesColuna {
+  width: 330px;
+  background-color: #FFF8E8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  gap: 0;
+}
+
+.imageBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 330px;
+  height: auto;
+  flex-shrink: 0; 
+  opacity: 0.8;
+}
+
+.mascote {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.sidebarPedido {
+  width: 500px;
+  background: white;
+  padding: 2.5rem;
+  overflow-y: auto;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.titulo {
+  color: #2B5BA8;
+  font-family: var(--font-seymour);
+  font-size: 2.4rem;
+  font-weight: 500;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.botoesPagamento {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.botaoPagamento {
+  background-color: #F5EDD4;
+  border: 3px solid transparent;
+  border-radius: 15px;
+  padding: 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2B5BA8;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-style: italic;
+}
+
+.botaoPagamento:hover {
+  background-color: #ede4c5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.botaoPagamento.selecionado {
+  background-color: #2B5BA8;
+  color: white;
+  border-color: #1e4080;
+}
+
+.finalizarPedido {
+  width: 100%;
+  background-color: #2B5BA8;
+  color: white;
+  border: none;
+  padding: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  margin-top: 4rem;
+}
+
+.finalizarPedido:hover {
+  background-color: #1e4080;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(43, 91, 168, 0.3);
+}
+
+.finalizarPedido:active {
+  transform: translateY(0);
+}
+
+.listaItens {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 9rem 0;
+  margin-top: 9rem;
+}
+
+.itemPedido {
+  color: #2B5BA8;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 1rem 0;
+}
+
+.itemPedido:last-child {
+  border-bottom: none;
+}
+
+.valorTotal {
+  background-color: #F5EDD4;
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.valorTotal p {
+  color: #2B5BA8;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.valorTotal strong {
+  color: #2B5BA8;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .carrinhoMain {
+    flex-direction: column;
+  }
+
+  .formasPagamento {
+    max-width: 100%;
+    padding: 2rem;
+  }
+
+  .sidebarWrapper {
+    position: static;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .imagenesColuna {
+    width: 100%;
+    flex-direction: row;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .imageBox {
+    width: 120px;
+  }
+
+  .sidebarPedido {
+    width: 100%;
+    box-shadow: none;
+    border-top: 2px solid #F5EDD4;
+  }
+}
+
+@media (max-width: 768px) {
+  .carrinhoHeader {
+    padding: 1rem;
+  }
+
+  .formasPagamento,
+  .sidebarPedido {
+    padding: 1.5rem;
+  }
+
+  .titulo {
+    font-size: 1.5rem;
+  }
+
+  .botaoPagamento {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .valorTotal strong {
+    font-size: 1.5rem;
+  }
+
+  .imageBox {
+    width: 100px;
+  }
+}
