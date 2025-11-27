@@ -3,6 +3,8 @@
   --color-secondary: #F4F1E0;
   --black: #000;
   --white: #FFF;
+  --font-seymour: 'Seymour One', cursive;
+  --font-montserrat: 'Montserrat Alternates', sans-serif;
 }
 
 * {
@@ -12,4 +14,5 @@
 html, body {
   margin: 0;
   padding: 0;
+  font-family: var(--font-montserrat);
 } 

@@ -26,14 +26,6 @@ export default function Login() {
     <div className={styles.container}>
 
       <div className={styles.containerLeft}>
-        <Image
-          src="/images/albertos.png"
-          alt="OrderTech"
-          width={300}
-          height={300}
-          className={styles.logo}
-          priority
-        />
       </div>
 
       <div className={styles.containerRight}>
