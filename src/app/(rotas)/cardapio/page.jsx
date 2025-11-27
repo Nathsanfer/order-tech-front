@@ -11,6 +11,7 @@ export default function Cardapio() {
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [apiBaseUrl, setApiBaseUrl] = useState('');
 
   const categorias = [
     { id: 'lanches', nome: 'Lanches', icone: 'hamburger' },
@@ -67,6 +68,10 @@ export default function Cardapio() {
             if (produtosArray.length > 0) {
               console.log('📋 Primeiro item como exemplo:', produtosArray[0]);
             }
+            
+            // Salva a URL base da API que funcionou
+            const baseUrl = url.replace('/menu', '');
+            setApiBaseUrl(baseUrl);
             
             setProdutos(produtosArray);
             setLoading(false);
@@ -170,10 +175,20 @@ export default function Cardapio() {
                 const descricao = produto.description || produto.descricao || '';
                 const preco = produto.cost ?? produto.preco ?? 0;
                 const imagemOriginal = produto.imageUrl || produto.imagem || '';
-                // Garante que a imagem seja uma URL válida ou usa padrão
-                const imagem = imagemOriginal && imagemOriginal.startsWith('/') 
-                  ? imagemOriginal 
-                  : '/images/lancheYummy.png';
+                
+                // Constrói a URL completa da imagem
+                let imagem = '/images/lancheYummy.png'; // padrão
+                if (imagemOriginal) {
+                  // Remove /public se existir
+                  const imagemLimpa = imagemOriginal.replace('/public', '');
+                  // Se a imagem não começa com http, adiciona a URL base da API
+                  if (!imagemLimpa.startsWith('http')) {
+                    imagem = `${apiBaseUrl}${imagemLimpa}`;
+                  } else {
+                    imagem = imagemLimpa;
+                  }
+                }
+                
                 const id = produto.id_item || produto.id;
                 const key = id || nome + preco;
 
