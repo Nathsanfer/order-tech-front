@@ -1,0 +1,144 @@
+/* ---------- CONTAINER GERAL ---------- */
+
+.container {
+  background: #F4F1DC;
+  min-height: 100vh;
+  padding: 20px 0;
+  font-family: 'Montserrat Alternates', sans-serif; /*deixa muito bruto 'Seymour One', cursive;*/
+}
+
+/* ---------- HEADER ---------- */
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 38px;
+  color: #3A6FCF;
+  font-weight: 800;
+}
+
+.subtitle {
+  font-size: 14px;
+  margin-top: -8px;
+}
+
+.senhasBtn {
+  background: #3A6FCF;
+  color: white;
+  border: none;
+  padding: 12px 35px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* ---------- CARDS ---------- */
+
+.cardsWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  background: white;
+  width: 260px;
+  padding: 15px 18px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
+
+/* HEADER DO CARD */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* numeros do pedido*/
+.cardHeader h2 {
+  color: #3A6FCF;
+  font-size: 22px;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+
+.badge {
+  width: 26px;
+  height: 26px;
+  background: #3A6FCF;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* ITEM */
+
+.item {
+  margin-top: 18px;
+}
+
+.label {
+  margin: 4px 0 5px 0;
+  font-size: 14px;
+color: #3A6FCF;
+}
+
+.input {
+  width: 100%;
+  padding: 6px;
+  border: 1.6px solid #D0D6E0;
+  border-radius: 6px;
+  background: #F9FBFF;
+  color: #3A6FCF;;
+}
+
+/* BOTÃO */
+
+.finalizadoBtn {
+  margin-top: 18px;
+  background: #3A6FCF;
+  color: white;
+  border: none;
+  padding: 10px 0;
+  border-radius: 6px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+/* FOOTER */
+
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 35px;
+}
+
+.icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 10px;
+  background: #3A6FCF; /* TEMPORÁRIO — substituirei pelo mascote se quiser */
+}
+
+.patternBottom {
+  width: 500%;
+  height: 39.5vh; 
+  background-image: url('/images/albertos.png');
+  background-size: contain;
+  background-repeat: repeat-x;
+}
