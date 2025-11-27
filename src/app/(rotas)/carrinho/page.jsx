@@ -4,12 +4,36 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaCreditCard, FaTicketAlt, FaQrcode, FaMoneyBillWave } from 'react-icons/fa';
 import { FaPix } from 'react-icons/fa6';
+import CustomAlert from '../../components/CustomAlert';
+import CustomConfirm from '../../components/CustomConfirm';
 import styles from './carrinho.module.css';
 
 const CarrinhoPage = () => {
   const router = useRouter();
   const [metodoPagamento, setMetodoPagamento] = useState('');
   const [itensCarrinho, setItensCarrinho] = useState([]);
+  const [alert, setAlert] = useState(null);
+  const [confirm, setConfirm] = useState(null);
+
+  const showAlert = (message, type = 'success', redirectToHome = false) => {
+    setAlert({ message, type, redirectToHome });
+  };
+
+  const closeAlert = () => {
+    const shouldRedirect = alert?.redirectToHome;
+    setAlert(null);
+    if (shouldRedirect) {
+      router.push('/home');
+    }
+  };
+
+  const showConfirm = (message, onConfirm) => {
+    setConfirm({ message, onConfirm });
+  };
+
+  const closeConfirm = () => {
+    setConfirm(null);
+  };
 
   // Carrega os itens do carrinho do localStorage
   useEffect(() => {
@@ -53,19 +77,23 @@ const CarrinhoPage = () => {
   };
 
   const handleLimparCarrinho = () => {
-    if (confirm('Deseja realmente limpar o carrinho?')) {
+    if (itensCarrinho.length === 0) return;
+    
+    showConfirm('Deseja realmente limpar todo o carrinho?', () => {
       atualizarCarrinho([]);
-    }
+      showAlert('Carrinho limpo com sucesso!', 'success');
+      closeConfirm();
+    });
   };
 
   const handleFinalizarPedido = () => {
     if (itensCarrinho.length === 0) {
-      alert('Seu carrinho está vazio! Adicione produtos antes de finalizar o pedido.');
+      showAlert('Seu carrinho está vazio!\nAdicione produtos antes de finalizar o pedido.', 'warning');
       return;
     }
     
     if (!metodoPagamento) {
-      alert('Por favor, selecione uma forma de pagamento');
+      showAlert('Por favor, selecione uma forma de pagamento', 'warning');
       return;
     }
     
@@ -75,11 +103,14 @@ const CarrinhoPage = () => {
     console.log('Total:', valorTotal);
     
     // Limpar carrinho após finalizar
-    if (confirm(`Confirmar pedido no valor de R$ ${valorTotal.toFixed(2).replace('.', ',')}?`)) {
-      atualizarCarrinho([]);
-      alert('Pedido finalizado com sucesso! 🎉');
-      // router.push('/confirmacao');
-    }
+    showConfirm(
+      `Confirmar pedido no valor de R$ ${valorTotal.toFixed(2).replace('.', ',')}?`,
+      () => {
+        atualizarCarrinho([]);
+        closeConfirm();
+        showAlert('Pedido finalizado com sucesso! 🎉\n\nSeu pedido está sendo preparado!', 'success', true);
+      }
+    );
   };
 
   const handleVoltarCardapio = () => {
@@ -276,6 +307,22 @@ const CarrinhoPage = () => {
           </aside>
         </div>
       </main>
+
+      {alert && (
+        <CustomAlert 
+          message={alert.message} 
+          type={alert.type} 
+          onClose={closeAlert} 
+        />
+      )}
+
+      {confirm && (
+        <CustomConfirm 
+          message={confirm.message} 
+          onConfirm={confirm.onConfirm}
+          onCancel={closeConfirm}
+        />
+      )}
     </div>
   );
 };

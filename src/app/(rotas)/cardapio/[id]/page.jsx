@@ -3,6 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import CustomAlert from '../../../components/CustomAlert';
 import styles from './[id].module.css';
 
 export default function DetalheProduto() {
@@ -11,6 +12,15 @@ export default function DetalheProduto() {
   const [produto, setProduto] = useState(null);
   const [quantidade, setQuantidade] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type = 'success') => {
+    setAlert({ message, type });
+  };
+
+  const closeAlert = () => {
+    setAlert(null);
+  };
 
   useEffect(() => {
     const fetchProduto = async () => {
@@ -143,7 +153,10 @@ export default function DetalheProduto() {
     
     // Mensagem de sucesso mais amigável
     const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
-    alert(`✅ ${quantidade}x ${produto.nome} adicionado ao carrinho!\n\nTotal de itens no carrinho: ${totalItens}`);
+    showAlert(
+      `✅ ${quantidade}x ${produto.nome} adicionado!\n\nTotal de itens no carrinho: ${totalItens}`,
+      'success'
+    );
     
     // Resetar quantidade para 1
     setQuantidade(1);
@@ -301,6 +314,14 @@ export default function DetalheProduto() {
           </div>
         </div>
       </aside>
+
+      {alert && (
+        <CustomAlert 
+          message={alert.message} 
+          type={alert.type} 
+          onClose={closeAlert} 
+        />
+      )}
     </div>
   );
 }

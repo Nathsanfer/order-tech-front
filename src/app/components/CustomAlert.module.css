@@ -1,0 +1,242 @@
+/* Overlay com blur */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Box do alerta - seguindo design do Order Tech */
+.alertBox {
+  background: linear-gradient(145deg, #F4F1E0 0%, #FFF9ED 50%, #ffffff 100%);
+  border-radius: 28px;
+  padding: 3.5rem 3rem 2.5rem;
+  max-width: 520px;
+  width: 90%;
+  box-shadow: 0 25px 70px rgba(58, 111, 207, 0.25),
+              0 15px 35px rgba(0, 0, 0, 0.12),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  border: 4px solid #3A6FCF;
+  overflow: hidden;
+}
+
+/* Alberto marca d'água no fundo */
+.alertBox::before {
+  content: '';
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  height: 380px;
+  background-image: url('/images/albertopng.png');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.08;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Garantir que o conteúdo fique acima da marca d'água */
+.alertBox > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Alberto mascote no topo */
+.albertoContainer {
+  margin-top: -5rem;
+  margin-bottom: -1.2rem;
+  animation: bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.25));
+}
+
+.albertoImg {
+  width: 130px !important;
+  height: 130px !important;
+  object-fit: contain;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-100px) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(10px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Ícone de status */
+.iconContainer {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border: 5px solid white;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.iconContainer.success {
+  background: linear-gradient(135deg, #4CAF50, #66BB6A);
+}
+
+.iconContainer.error {
+  background: linear-gradient(135deg, #f44336, #ef5350);
+}
+
+.iconContainer.warning {
+  background: linear-gradient(135deg, #ff9800, #ffa726);
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  color: white;
+  stroke-width: 3.5;
+}
+
+/* Mensagem */
+.messageContainer {
+  text-align: center;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.message {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 1.15rem;
+  color: #2d5bb7;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-line;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* Botão - estilo Order Tech */
+.closeButton {
+  background: linear-gradient(135deg, #3A6FCF 0%, #2d5bb7 100%);
+  color: white;
+  border: none;
+  padding: 1.1rem 4.5rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Montserrat Alternates', sans-serif;
+  margin-top: 0.8rem;
+  letter-spacing: 1.5px;
+  box-shadow: 0 8px 24px rgba(58, 111, 207, 0.35),
+              0 4px 12px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.closeButton:hover {
+  background: linear-gradient(135deg, #2d5bb7 0%, #1e4a9f 100%);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(58, 111, 207, 0.45),
+              0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.closeButton:active {
+  transform: translateY(-1px) scale(1);
+  box-shadow: 0 6px 20px rgba(58, 111, 207, 0.35);
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .alertBox {
+    padding: 3rem 2rem 2rem;
+    max-width: 95%;
+    gap: 1.5rem;
+    border-width: 3px;
+  }
+
+  .albertoContainer {
+    margin-top: -4.5rem;
+  }
+
+  .albertoImg {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  .iconContainer {
+    width: 85px;
+    height: 85px;
+    border-width: 4px;
+  }
+
+  .icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .messageContainer {
+    padding: 0 0.5rem;
+  }
+
+  .message {
+    font-size: 1.05rem;
+  }
+
+  .closeButton {
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+  }
+}
