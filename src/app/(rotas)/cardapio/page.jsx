@@ -12,6 +12,7 @@ export default function Cardapio() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [apiBaseUrl, setApiBaseUrl] = useState('');
+  const [carrinhoCount, setCarrinhoCount] = useState(0);
 
   const categorias = [
     { id: 'lanches', nome: 'Lanches', icone: 'hamburger' },
@@ -19,6 +20,29 @@ export default function Cardapio() {
     { id: 'bebidas', nome: 'Bebidas', icone: 'soda' },
     { id: 'sobremesas', nome: 'Sobremesas', icone: 'icecream' }
   ];
+
+  // Atualiza o contador do carrinho
+  useEffect(() => {
+    const atualizarContador = () => {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+      const total = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
+      setCarrinhoCount(total);
+    };
+
+    // Atualiza inicialmente
+    atualizarContador();
+
+    // Escuta mudanças no localStorage (de outras abas/janelas)
+    window.addEventListener('storage', atualizarContador);
+    
+    // Escuta evento customizado para atualizações na mesma aba
+    window.addEventListener('carrinhoAtualizado', atualizarContador);
+
+    return () => {
+      window.removeEventListener('storage', atualizarContador);
+      window.removeEventListener('carrinhoAtualizado', atualizarContador);
+    };
+  }, []);
 
   const handleCarrinhoClick = () => {
     router.push('/carrinho');
@@ -149,7 +173,7 @@ export default function Cardapio() {
           style={{ cursor: 'pointer' }}
         >
           <GiBasket />
-          <span className={styles.badgeCarrinho}>0</span>
+          <span className={styles.badgeCarrinho}>{carrinhoCount}</span>
         </div>
       </header>
 

@@ -1,27 +1,69 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { FaCreditCard, FaTicketAlt, FaQrcode, FaMoneyBillWave } from 'react-icons/fa';
+import { FaPix } from 'react-icons/fa6';
 import styles from './carrinho.module.css';
 
 const CarrinhoPage = () => {
   const router = useRouter();
   const [metodoPagamento, setMetodoPagamento] = useState('');
+  const [itensCarrinho, setItensCarrinho] = useState([]);
 
-  // Simulação de itens do carrinho - depois conectar com contexto/API
-  const itensCarrinho = [
-    { id: 1, nome: 'X-Burguer duplo prazer', quantidade: 1, preco: 25.90 },
-    { id: 2, nome: 'Batata Frita Pequena', quantidade: 2, preco: 12.00 },
-    { id: 3, nome: 'Gin Lemon Fresh', quantidade: 1, preco: 18.00 },
-    { id: 4, nome: 'Mousse de Maracujá Cremoso', quantidade: 2, preco: 14.00 },
-  ];
+  // Carrega os itens do carrinho do localStorage
+  useEffect(() => {
+    const carrinhoSalvo = localStorage.getItem('carrinho');
+    if (carrinhoSalvo) {
+      try {
+        const itens = JSON.parse(carrinhoSalvo);
+        setItensCarrinho(itens);
+      } catch (error) {
+        console.error('Erro ao carregar carrinho:', error);
+        setItensCarrinho([]);
+      }
+    }
+  }, []);
 
   const valorTotal = itensCarrinho.reduce(
     (total, item) => total + (item.preco * item.quantidade), 
     0
   );
 
+  const atualizarCarrinho = (novosItens) => {
+    setItensCarrinho(novosItens);
+    localStorage.setItem('carrinho', JSON.stringify(novosItens));
+  };
+
+  const handleRemoverItem = (itemId) => {
+    const novosItens = itensCarrinho.filter(item => item.id !== itemId);
+    atualizarCarrinho(novosItens);
+  };
+
+  const handleAlterarQuantidade = (itemId, novaQuantidade) => {
+    if (novaQuantidade < 1) {
+      handleRemoverItem(itemId);
+      return;
+    }
+    
+    const novosItens = itensCarrinho.map(item => 
+      item.id === itemId ? { ...item, quantidade: novaQuantidade } : item
+    );
+    atualizarCarrinho(novosItens);
+  };
+
+  const handleLimparCarrinho = () => {
+    if (confirm('Deseja realmente limpar o carrinho?')) {
+      atualizarCarrinho([]);
+    }
+  };
+
   const handleFinalizarPedido = () => {
+    if (itensCarrinho.length === 0) {
+      alert('Seu carrinho está vazio! Adicione produtos antes de finalizar o pedido.');
+      return;
+    }
+    
     if (!metodoPagamento) {
       alert('Por favor, selecione uma forma de pagamento');
       return;
@@ -29,7 +71,15 @@ const CarrinhoPage = () => {
     
     // Aqui você implementaria a lógica de finalização
     console.log('Finalizando pedido com:', metodoPagamento);
-    // router.push('/confirmacao');
+    console.log('Itens:', itensCarrinho);
+    console.log('Total:', valorTotal);
+    
+    // Limpar carrinho após finalizar
+    if (confirm(`Confirmar pedido no valor de R$ ${valorTotal.toFixed(2).replace('.', ',')}?`)) {
+      atualizarCarrinho([]);
+      alert('Pedido finalizado com sucesso! 🎉');
+      // router.push('/confirmacao');
+    }
   };
 
   const handleVoltarCardapio = () => {
@@ -46,7 +96,8 @@ const CarrinhoPage = () => {
 
       <main className={styles.carrinhoMain}>
         <section className={styles.formasPagamento}>
-          <h2 className={styles.titulo}>Formas de Pagamento:</h2>
+          <h2 className={styles.tituloPagamento}>Formas de Pagamento</h2>
+          <p className={styles.subtituloPagamento}>Escolha como deseja pagar seu pedido</p>
           
           <div className={styles.botoesPagamento}>
             <button
@@ -55,7 +106,11 @@ const CarrinhoPage = () => {
               }`}
               onClick={() => setMetodoPagamento('cartao')}
             >
-              Cartão de débito ou crédito
+              <FaCreditCard className={styles.iconePagamento} />
+              <div className={styles.textoPagamento}>
+                <span className={styles.tituloOpcao}>Cartão</span>
+                <span className={styles.descricaoOpcao}>Débito ou Crédito</span>
+              </div>
             </button>
             
             <button
@@ -64,7 +119,11 @@ const CarrinhoPage = () => {
               }`}
               onClick={() => setMetodoPagamento('vale')}
             >
-              Vale Refeição
+              <FaTicketAlt className={styles.iconePagamento} />
+              <div className={styles.textoPagamento}>
+                <span className={styles.tituloOpcao}>Vale Refeição</span>
+                <span className={styles.descricaoOpcao}>Sodexo, Alelo, VR</span>
+              </div>
             </button>
             
             <button
@@ -73,7 +132,11 @@ const CarrinhoPage = () => {
               }`}
               onClick={() => setMetodoPagamento('pix')}
             >
-              PIX
+              <FaPix className={styles.iconePagamento} />
+              <div className={styles.textoPagamento}>
+                <span className={styles.tituloOpcao}>PIX</span>
+                <span className={styles.descricaoOpcao}>Pagamento instantâneo</span>
+              </div>
             </button>
             
             <button
@@ -82,7 +145,11 @@ const CarrinhoPage = () => {
               }`}
               onClick={() => setMetodoPagamento('qrcode')}
             >
-              QR Code
+              <FaQrcode className={styles.iconePagamento} />
+              <div className={styles.textoPagamento}>
+                <span className={styles.tituloOpcao}>QR Code</span>
+                <span className={styles.descricaoOpcao}>Escaneie e pague</span>
+              </div>
             </button>
             
             <button
@@ -91,15 +158,20 @@ const CarrinhoPage = () => {
               }`}
               onClick={() => setMetodoPagamento('dinheiro')}
             >
-              Dinheiro
+              <FaMoneyBillWave className={styles.iconePagamento} />
+              <div className={styles.textoPagamento}>
+                <span className={styles.tituloOpcao}>Dinheiro</span>
+                <span className={styles.descricaoOpcao}>Pagamento em espécie</span>
+              </div>
             </button>
           </div>
 
           <button 
             className={styles.finalizarPedido}
             onClick={handleFinalizarPedido}
+            disabled={!metodoPagamento || itensCarrinho.length === 0}
           >
-            Finalizar Pedido
+            {metodoPagamento ? '✓ Finalizar Pedido' : 'Selecione uma Forma de Pagamento'}
           </button>
         </section>
 
@@ -145,18 +217,62 @@ const CarrinhoPage = () => {
           <aside className={styles.sidebarPedido}>
             <h2 className={styles.titulo}>Detalhes do Pedido:</h2>
             
-            <ul className={styles.listaItens}>
-              {itensCarrinho.map((item) => (
-                <li key={item.id} className={styles.itemPedido}>
-                  {item.quantidade}x {item.nome}
-                </li>
-              ))}
-            </ul>
+            {itensCarrinho.length === 0 ? (
+              <p className={styles.carrinhoVazio}>
+                Seu carrinho está vazio. Adicione produtos do cardápio!
+              </p>
+            ) : (
+              <>
+                <ul className={styles.listaItens}>
+                  {itensCarrinho.map((item) => (
+                    <li key={item.id} className={styles.itemPedido}>
+                      <div className={styles.itemInfo}>
+                        <span className={styles.itemNome}>{item.nome}</span>
+                        <span className={styles.itemPreco}>
+                          R$ {(item.preco * item.quantidade).toFixed(2).replace('.', ',')}
+                        </span>
+                      </div>
+                      <div className={styles.itemControles}>
+                        <button 
+                          className={styles.btnQuantidade}
+                          onClick={() => handleAlterarQuantidade(item.id, item.quantidade - 1)}
+                        >
+                          -
+                        </button>
+                        <span className={styles.quantidade}>{item.quantidade}</span>
+                        <button 
+                          className={styles.btnQuantidade}
+                          onClick={() => handleAlterarQuantidade(item.id, item.quantidade + 1)}
+                        >
+                          +
+                        </button>
+                        <button 
+                          className={styles.btnRemover}
+                          onClick={() => handleRemoverItem(item.id)}
+                          title="Remover item"
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
 
-            <div className={styles.valorTotal}>
-              <p>Valor Total:</p>
-              <strong>R$ {valorTotal.toFixed(2).replace('.', ',')}</strong>
-            </div>
+                <div className={styles.valorTotal}>
+                  <p>Valor Total:</p>
+                  <strong>R$ {valorTotal.toFixed(2).replace('.', ',')}</strong>
+                </div>
+
+                {itensCarrinho.length > 0 && (
+                  <button 
+                    className={styles.btnLimparCarrinho}
+                    onClick={handleLimparCarrinho}
+                  >
+                    Limpar Carrinho
+                  </button>
+                )}
+              </>
+            )}
           </aside>
         </div>
       </main>

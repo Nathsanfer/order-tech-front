@@ -121,7 +121,9 @@ export default function DetalheProduto() {
   };
 
   const handleAdicionarCarrinho = () => {
-    // Adicionar ao carrinho (implementar localStorage ou context)
+    if (!produto) return;
+    
+    // Adicionar ao carrinho
     const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
     const itemExistente = carrinho.find(item => item.id === produto.id);
     
@@ -135,8 +137,19 @@ export default function DetalheProduto() {
     }
     
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    alert(`${quantidade}x ${produto.nome} adicionado ao carrinho!`);
-    router.push('/cardapio');
+    
+    // Dispara evento para atualizar o contador do carrinho
+    window.dispatchEvent(new Event('carrinhoAtualizado'));
+    
+    // Mensagem de sucesso mais amigável
+    const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
+    alert(`✅ ${quantidade}x ${produto.nome} adicionado ao carrinho!\n\nTotal de itens no carrinho: ${totalItens}`);
+    
+    // Resetar quantidade para 1
+    setQuantidade(1);
+    
+    // Opcional: redirecionar ou manter na página
+    // router.push('/cardapio');
   };
 
   if (loading) {
