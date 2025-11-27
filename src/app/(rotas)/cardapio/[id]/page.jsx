@@ -53,11 +53,14 @@ export default function DetalheProduto() {
               if (produtoEncontrado) {
                 console.log('✅ Produto encontrado:', produtoEncontrado);
                 
-                // Processa a imagem
+                // Processa a imagem da mesma forma que no cardápio
                 const imagemOriginal = produtoEncontrado.imageUrl || produtoEncontrado.imagem || '';
                 let imagemFinal = '/images/lancheYummy.png';
+                
                 if (imagemOriginal) {
+                  // Remove /public se existir
                   const imagemLimpa = imagemOriginal.replace('/public', '');
+                  // Se a imagem não começa com http, adiciona a URL base da API
                   if (!imagemLimpa.startsWith('http')) {
                     const baseUrl = url.replace('/menu', '');
                     imagemFinal = `${baseUrl}${imagemLimpa}`;
@@ -65,6 +68,8 @@ export default function DetalheProduto() {
                     imagemFinal = imagemLimpa;
                   }
                 }
+                
+                console.log('🖼️ URL da imagem processada:', imagemFinal);
                 
                 // Normaliza os dados para o formato esperado
                 const produtoNormalizado = {
@@ -142,10 +147,8 @@ export default function DetalheProduto() {
     return <div className={styles.loading}>Produto não encontrado</div>;
   }
 
-  // Garante que a imagem é uma URL válida ou usa uma padrão
-  const imagemProduto = produto.imagem && produto.imagem.startsWith('/') 
-    ? produto.imagem 
-    : '/images/lancheYummy.png';
+  // Usa a imagem do produto diretamente
+  const imagemProduto = produto.imagem || '/images/lancheYummy.png';
 
   return (
     <div className={styles.container}>
@@ -170,11 +173,9 @@ export default function DetalheProduto() {
 
           {/* Imagem do Produto */}
           <div className={styles.produtoImage}>
-            <Image
+            <img
               src={imagemProduto}
               alt={produto.nome}
-              width={1100}
-              height={1100}
               className={styles.produtoImg}
             />
           </div>
