@@ -1,0 +1,118 @@
+:root {
+  --bg: #f4f1e0;
+  --primary: #3a6fcf;
+  --dark: #303b93;
+  --card-bg: #ffffff;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--bg) 0%, #efead8 100%);
+  padding: 2rem;
+  font-family: var(--font-seymour), Inter, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  padding: 3.25rem 2rem 2rem;
+  text-align: center;
+  overflow: visible;
+}
+
+.image {
+  width: 460px;
+  max-width: 92%;
+  height: auto;
+  display: block;
+  margin: -56px auto 0;
+  background: transparent;
+  padding: 0;
+  object-fit: contain;
+
+  animation: float-soft 6s ease-in-out infinite,
+    neon-pulse 3.6s ease-in-out infinite;
+  will-change: transform, filter;
+  transform-origin: 50% 50%;
+
+  filter: drop-shadow(0 0 8px rgba(58, 111, 207, 0.12));
+}
+
+.title {
+  font-size: 4rem;
+  line-height: 1;
+  margin: 0.6rem 0 0.4rem;
+  color: var(--dark);
+  letter-spacing: 1px;
+}
+
+.message {
+  font-size: 1.125rem;
+  margin: 0.25rem 0 1.25rem;
+  color: var(--primary);
+}
+
+.link {
+  display: inline-block;
+  background: #303b93;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(58, 111, 207, 0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+.link:hover,
+.link:focus {
+  transform: translateY(-2px);
+  background-color: #3a6fcf;
+  color: #fff;
+}
+
+@keyframes float-soft {
+  0% {
+    transform: translateY(0) rotate(-0.8deg) scale(1);
+  }
+  25% {
+    transform: translateY(-6px) rotate(0.4deg) scale(1.015);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.8deg) scale(1.02);
+  }
+  75% {
+    transform: translateY(-6px) rotate(0.4deg) scale(1.015);
+  }
+  100% {
+    transform: translateY(0) rotate(-0.8deg) scale(1);
+  }
+}
+
+@keyframes neon-pulse {
+  0% {
+    filter: drop-shadow(0 0 6px rgba(58, 111, 207, 0.1))
+      drop-shadow(0 0 18px rgba(94, 146, 255, 0.06));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(58, 111, 207, 0.24))
+      drop-shadow(0 0 36px rgba(94, 146, 255, 0.14));
+  }
+  100% {
+    filter: drop-shadow(0 0 6px rgba(58, 111, 207, 0.1))
+      drop-shadow(0 0 18px rgba(94, 146, 255, 0.06));
+  }
+}
+
+@media (max-width: 480px) {
+  .image {
+    width: 180px;
+    margin-top: -48px;
+    animation-duration: 5s, 3s;
+  }
+}
