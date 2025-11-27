@@ -14,37 +14,77 @@ export default function DetalheProduto() {
 
   useEffect(() => {
     const fetchProduto = async () => {
-      try {
-        // Simulando busca de dados - substitua pela sua API real
-        const response = await fetch(`/api/menu/${params.id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setProduto(data);
-        } else {
-          // Dados de exemplo caso a API não exista ainda
-          setProduto({
-            id: params.id,
-            nome: 'X-Burguer duplo prazer',
-            descricao: 'Um delicioso X-Burguer com cheddar e bacon lorem ipsum dolor sit amet. Consectetur adipiscing elit. Phasellus consectetur mattis enim non pharetra.',
-            preco: 21.90,
-            imagem: '/lancheYummy.png'
-          });
+      // Primeiro tenta buscar do localStorage
+      const produtoLocalStorage = localStorage.getItem(`produto_${params.id}`);
+      if (produtoLocalStorage) {
+        try {
+          const produtoSalvo = JSON.parse(produtoLocalStorage);
+          setProduto(produtoSalvo);
+          setLoading(false);
+          console.log('✅ Produto carregado do localStorage:', produtoSalvo);
+          return;
+        } catch (err) {
+          console.error('Erro ao parsear produto do localStorage:', err);
         }
+      }
+
+      // Se não encontrou no localStorage, tenta buscar da API
+      try {
+        const candidateUrls = [
+          'http://localhost:5001/menu',
+          'http://localhost:4001/menu',
+          'http://localhost:3001/menu'
+        ];
+
+        for (const url of candidateUrls) {
+          try {
+            console.log(`📡 Tentando buscar de: ${url}`);
+            const response = await fetch(url);
+            if (response.ok) {
+              const data = await response.json();
+              const produtos = Array.isArray(data) ? data : [];
+              console.log(`✅ ${produtos.length} produtos recebidos de ${url}`);
+              
+              // Busca o produto pelo ID
+              const produtoEncontrado = produtos.find(p => 
+                String(p.id_item || p.id) === String(params.id)
+              );
+
+              if (produtoEncontrado) {
+                console.log('✅ Produto encontrado:', produtoEncontrado);
+                // Normaliza os dados para o formato esperado
+                const produtoNormalizado = {
+                  id: produtoEncontrado.id_item || produtoEncontrado.id,
+                  nome: produtoEncontrado.name || produtoEncontrado.nome,
+                  descricao: produtoEncontrado.description || produtoEncontrado.descricao || '',
+                  preco: produtoEncontrado.cost ?? produtoEncontrado.preco ?? 0,
+                  imagem: produtoEncontrado.imageUrl || produtoEncontrado.imagem || '/lancheYummy.png'
+                };
+                
+                setProduto(produtoNormalizado);
+                setLoading(false);
+                return;
+              } else {
+                console.log(`⚠️ Produto com ID ${params.id} não encontrado na lista`);
+              }
+            }
+          } catch (err) {
+            console.error(`❌ Falha ao buscar de ${url}:`, err.message);
+          }
+        }
+        
+        // Se nenhuma URL funcionou
+        console.error('⚠️ Produto não encontrado em nenhuma API');
+        setLoading(false);
       } catch (error) {
-        // Dados de exemplo em caso de erro
-        setProduto({
-          id: params.id,
-          nome: 'X-Burguer duplo prazer',
-          descricao: 'Um delicioso X-Burguer com cheddar e bacon lorem ipsum dolor sit amet. Consectetur adipiscing elit. Phasellus consectetur mattis enim non pharetra.',
-          preco: 21.90,
-          imagem: '/lancheYummy.png'
-        });
-      } finally {
+        console.error('❌ Erro ao buscar produto:', error);
         setLoading(false);
       }
     };
 
-    fetchProduto();
+    if (params.id) {
+      fetchProduto();
+    }
   }, [params.id]);
 
   const handleVoltarCardapio = () => {
@@ -88,6 +128,11 @@ export default function DetalheProduto() {
     return <div className={styles.loading}>Produto não encontrado</div>;
   }
 
+  // Garante que a imagem é uma URL válida ou usa uma padrão
+  const imagemProduto = produto.imagem && produto.imagem.startsWith('/') 
+    ? produto.imagem 
+    : '/images/lancheYummy.png';
+
   return (
     <div className={styles.container}>
       <div className={styles.mainContent}>
@@ -112,7 +157,7 @@ export default function DetalheProduto() {
           {/* Imagem do Produto */}
           <div className={styles.produtoImage}>
             <Image
-              src={produto.imagem}
+              src={imagemProduto}
               alt={produto.nome}
               width={1100}
               height={1100}

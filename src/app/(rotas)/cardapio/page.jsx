@@ -1,17 +1,85 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './cardapio.module.css';
 import { GiBasket, GiHamburger, GiFrenchFries, GiSodaCan, GiIceCreamCone } from "react-icons/gi";
 
 export default function Cardapio() {
+  const router = useRouter();
+  const [selectedCategory, setSelectedCategory] = useState('Lanches');
+  const [produtos, setProdutos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const categorias = [
     { id: 'lanches', nome: 'Lanches', icone: 'hamburger' },
     { id: 'complementos', nome: 'Complementos', icone: 'fries' },
     { id: 'bebidas', nome: 'Bebidas', icone: 'soda' },
     { id: 'sobremesas', nome: 'Sobremesas', icone: 'icecream' }
   ];
-    }
+
+  useEffect(() => {
+    const fetchWithFallback = async (urls) => {
+      console.log('🔍 Iniciando busca de produtos...');
+      for (const url of urls) {
+        try {
+          console.log(`📡 Tentando fetch em: ${url}`);
+          const response = await fetch(url);
+          console.log(`📊 Response status de ${url}:`, response.status, response.statusText);
+          
+          if (response.ok) {
+            const data = await response.json();
+            console.log('✅ DADOS RECEBIDOS:', data);
+            console.log('📦 Tipo dos dados:', Array.isArray(data) ? 'Array' : typeof data);
+            
+            // Tenta diferentes estruturas de resposta
+            let produtosArray = [];
+            
+            if (Array.isArray(data)) {
+              // Se já é um array direto
+              produtosArray = data;
+            } else if (data && typeof data === 'object') {
+              // Se é um objeto, tenta encontrar o array dentro dele
+              console.log('� Procurando array dentro do objeto...');
+              console.log('🔑 Chaves do objeto:', Object.keys(data));
+              
+              // Tenta diferentes possíveis chaves
+              if (data.items) produtosArray = data.items;
+              else if (data.products) produtosArray = data.products;
+              else if (data.menu) produtosArray = data.menu;
+              else if (data.data) produtosArray = data.data;
+              else if (data.results) produtosArray = data.results;
+              // Se nenhuma chave conhecida, pega o primeiro array que encontrar
+              else {
+                for (const key in data) {
+                  if (Array.isArray(data[key])) {
+                    console.log(`✅ Array encontrado na chave: ${key}`);
+                    produtosArray = data[key];
+                    break;
+                  }
+                }
+              }
+            }
+            
+            console.log('📝 Quantidade de itens encontrados:', produtosArray.length);
+            
+            if (produtosArray.length > 0) {
+              console.log('📋 Primeiro item como exemplo:', produtosArray[0]);
+            }
+            
+            setProdutos(produtosArray);
+            setLoading(false);
+            return;
+          }
+        } catch (err) {
+          console.error(`❌ Falha ao buscar de ${url}:`, err.message);
+        }
+      }
+      console.error('⚠️ Nenhuma API respondeu com sucesso');
+      setError('Não foi possível carregar os produtos de nenhuma API');
+      setLoading(false);
+    };
 
     const candidateUrls = [
       'http://localhost:5001/menu',
@@ -45,6 +113,19 @@ export default function Cardapio() {
 
   const produtosArray = Array.isArray(produtos) ? produtos : [];
   const produtosFiltrados = produtosArray.filter((p) => typeMatchesCategory(p.type || p.tipo || '', selectedCategory));
+
+  // Debug logs
+  console.log('🔎 Estado atual:');
+  console.log('  📦 Total de produtos:', produtosArray.length);
+  console.log('  🏷️ Categoria selecionada:', selectedCategory);
+  console.log('  ✅ Produtos filtrados:', produtosFiltrados.length);
+  console.log('  ⏳ Loading:', loading);
+  console.log('  ❌ Error:', error);
+  
+  if (produtosArray.length > 0) {
+    console.log('  📋 Exemplo de produto:', produtosArray[0]);
+    console.log('  🏷️ Type do primeiro produto:', produtosArray[0].type || produtosArray[0].tipo);
+  }
 
   return (
     <div className={styles.container}>
@@ -88,11 +169,34 @@ export default function Cardapio() {
                 const nome = produto.name || produto.nome || 'Item';
                 const descricao = produto.description || produto.descricao || '';
                 const preco = produto.cost ?? produto.preco ?? 0;
-                const imagem = produto.imageUrl || produto.imagem || '/lancheYummy.png';
-                const key = produto.id_item || produto.id || produto.id_item || nome + preco;
+                const imagemOriginal = produto.imageUrl || produto.imagem || '';
+                // Garante que a imagem seja uma URL válida ou usa padrão
+                const imagem = imagemOriginal && imagemOriginal.startsWith('/') 
+                  ? imagemOriginal 
+                  : '/images/lancheYummy.png';
+                const id = produto.id_item || produto.id;
+                const key = id || nome + preco;
+
+                const handleClick = () => {
+                  // Salva o produto completo no localStorage antes de navegar
+                  const produtoParaSalvar = {
+                    id,
+                    nome,
+                    descricao,
+                    preco,
+                    imagem
+                  };
+                  localStorage.setItem(`produto_${id}`, JSON.stringify(produtoParaSalvar));
+                  router.push(`/cardapio/${id}`);
+                };
 
                 return (
-                  <div key={key} className={styles.produtoCard}>
+                  <div 
+                    key={key} 
+                    className={styles.produtoCard}
+                    onClick={handleClick}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <img
                       src={imagem}
                       alt={nome}
