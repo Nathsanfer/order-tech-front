@@ -14,11 +14,9 @@ export default function Cardapio() {
     }
 
     const candidateUrls = [
-      '/api/menu',
-      'http://localhost:4001/api/menu',
+      'http://localhost:5001/menu',
       'http://localhost:4001/menu',
-      'http://localhost:5001/api/menu',
-      'http://localhost:3001/api/menu'
+      'http://localhost:3001/menu'
     ];
 
     fetchWithFallback(candidateUrls);
@@ -78,6 +76,12 @@ export default function Cardapio() {
         </aside>
 
         <main className={styles.content}>
+          <img src="/images/alberto.png" alt="Hambúrguer Logo" className={styles.marcaDagua} />
+          <h2 className={styles.tituloCategoria}>{selectedCategory}</h2>
+
+          {loading && <p>Carregando itens...</p>}
+          {error && <p style={{ color: 'red' }}>Erro: {error}</p>}
+
           <div className={styles.produtosGrid}>
             {(produtosFiltrados.length > 0 ? produtosFiltrados : [])
               .map((produto) => {

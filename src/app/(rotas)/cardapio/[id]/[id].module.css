@@ -1,0 +1,339 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #FFFFFF;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+  overflow: visible;
+  min-width: 0;
+}
+
+.voltarBtn {
+  background-color: #4169E1;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 10;
+  font-family: var(--font-montserrat);
+}
+
+.voltarBtn:hover {
+  background-color: #3154b8;
+}
+
+.imageArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 2rem;
+  min-height: 500px;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+  width: 100%;
+  max-width: none;
+  margin-left: 100px;
+}
+
+.logoAlberto {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.albertoImg {
+  width: 100%;
+  height: auto;
+  max-width: 2500px;
+  object-fit: contain;
+  opacity: 0.6;
+}
+
+.produtoImage {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  margin-left: -480px;
+}
+
+.produtoImg {
+  width: 100%;
+  height: auto;
+  max-width: 1100px;
+  object-fit: contain;
+}
+
+.albertosArea {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  z-index: 1;
+}
+
+.albertosImg {
+  width: auto;
+  height: 200px;
+  object-fit: contain;
+  object-position: left bottom;
+  flex-shrink: 0;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 550px;
+  background-color: #FFF8E8;
+  padding: 2rem 2.5rem;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+.sidebarContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarTitle {
+  color: #4169E1;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+  text-align: center;
+  font-family: var(--font-seymour);
+}
+
+.produtoInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.produtoNome {
+  color: #4169E1;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-family: var(--font-montserrat);
+  text-align: center;
+}
+
+.produtoDescricao {
+  color: #333;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin: 0;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-montserrat);
+}
+
+.produtoPreco {
+  color: #4169E1;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 2rem;
+  font-family: var(--font-montserrat);
+  text-align: center;
+}
+
+.quantidadeControl {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  margin-top: auto;
+  padding-top: 0;
+}
+
+.quantidadeBtn {
+  background-color: #4169E1;
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantidadeBtn:hover:not(:disabled) {
+  background-color: #3154b8;
+  transform: scale(1.05);
+}
+
+.quantidadeBtn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.quantidadeValor {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  min-width: 30px;
+  text-align: center;
+  background-color: #FFFFFF;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: var(--font-montserrat);
+}
+
+.quantidadeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.adicionarBtn {
+  background-color: #4169E1;
+  color: white;
+  border: none;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(65, 105, 225, 0.3);
+  width: 100%;
+  font-family: var(--font-montserrat);
+}
+
+.adicionarBtn:hover {
+  background-color: #3154b8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(65, 105, 225, 0.4);
+}
+
+.adicionarBtn:active {
+  transform: translateY(0);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  color: #4169E1;
+  background-color: #FFFFFF;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 400px;
+  }
+
+  .quadriculadoArea {
+    right: 400px;
+  }
+
+  .imageArea {
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  .produtoImage {
+    margin-left: 0;
+  }
+
+  .albertoImg {
+    max-width: 250px;
+  }
+
+  .produtoImg {
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .mainContent {
+    padding: 1rem;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .quadriculadoArea {
+    position: relative;
+    right: 0;
+    height: 200px;
+    margin-top: 2rem;
+  }
+
+  .imageArea {
+    min-height: auto;
+  }
+
+  .albertoImg {
+    max-width: 150px;
+  }
+
+  .produtoImg {
+    max-width: 250px;
+  }
+
+  .produtoNome {
+    font-size: 1.5rem;
+  }
+
+  .produtoPreco {
+    font-size: 1.75rem;
+  }
+
+  .quantidadeControl {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .quantidadeWrapper {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .adicionarBtn {
+    width: 100%;
+  }
+}
