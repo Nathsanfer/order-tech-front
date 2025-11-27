@@ -15,12 +15,16 @@ const CarrinhoPage = () => {
   const [alert, setAlert] = useState(null);
   const [confirm, setConfirm] = useState(null);
 
-  const showAlert = (message, type = 'success') => {
-    setAlert({ message, type });
+  const showAlert = (message, type = 'success', redirectToHome = false) => {
+    setAlert({ message, type, redirectToHome });
   };
 
   const closeAlert = () => {
+    const shouldRedirect = alert?.redirectToHome;
     setAlert(null);
+    if (shouldRedirect) {
+      router.push('/home');
+    }
   };
 
   const showConfirm = (message, onConfirm) => {
@@ -104,8 +108,7 @@ const CarrinhoPage = () => {
       () => {
         atualizarCarrinho([]);
         closeConfirm();
-        showAlert('Pedido finalizado com sucesso! 🎉\n\nSeu pedido está sendo preparado!', 'success');
-        // router.push('/confirmacao');
+        showAlert('Pedido finalizado com sucesso! 🎉\n\nSeu pedido está sendo preparado!', 'success', true);
       }
     );
   };
