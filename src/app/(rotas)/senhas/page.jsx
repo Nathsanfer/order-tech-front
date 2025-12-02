@@ -17,7 +17,9 @@ export default function Page() {
           <button className={styles.box}>#12236</button>
         </div>
 
-        <div className={styles.centerImage}></div>
+        <div className={styles.centerImage}>
+          <img src="/images/albertopng.png" alt="Alberto mascote" />
+        </div>
 
         <div className={styles.column}>
           <h2>Finalizado</h2>
