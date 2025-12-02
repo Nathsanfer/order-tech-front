@@ -35,7 +35,7 @@ npm install
 Crie um arquivo `.env.local` na raiz para apontar a URL da API do backend (exemplo mínimo):
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_API_URL=http://localhost:5001
 # Para o servidor Next em produção, você pode usar PORT=3000
 ```
 
