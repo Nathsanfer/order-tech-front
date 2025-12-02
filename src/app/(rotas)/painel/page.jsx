@@ -1,4 +1,5 @@
 import styles from "./painel.module.css";
+import Link from "next/link";
 
 export default function Page() {
   const pedidos = [
@@ -11,13 +12,13 @@ export default function Page() {
   return (
     <main className={styles.container}>
       <header className={styles.header}>
-        <div>
-          <h1 className={styles.title}>
-            Order <span className={styles.titleSpan}>Tech</span>
-          </h1>
-          <p className={styles.subtitle}>Painel da Cozinha</p>
+        <div className={styles.logo}>
+          <h1>Order Tech</h1>
+          <p>Painel da Cozinha</p>
         </div>
-        <button className={styles.senhasBtn}>Senhas 🔒</button>
+        <div className={styles.headerButtons}>
+          <Link href="/senhas" className={styles.senhasBtn}>Senhas</Link>
+        </div>
       </header>
 
       <div className={styles.cardsWrapper}>
