@@ -1,7 +1,6 @@
 :root {
   --bg: #f4f1e0;
   --primary: #3a6fcf;
-  --dark: #303b93;
   --card-bg: #ffffff;
 }
 
@@ -12,8 +11,6 @@
   justify-content: center;
   background: linear-gradient(180deg, var(--bg) 0%, #efead8 100%);
   padding: 2rem;
-  font-family: var(--font-seymour), Inter, system-ui, -apple-system, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial;
 }
 
 .card {
@@ -26,8 +23,8 @@
 }
 
 .image {
-  width: 460px;
-  max-width: 92%;
+  width: 480px;
+  max-width: 98%;
   height: auto;
   display: block;
   margin: -56px auto 0;
@@ -44,29 +41,35 @@
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 8rem;
+  font-family: var(--font-seymour);
   line-height: 1;
-  margin: 0.6rem 0 0.4rem;
-  color: var(--dark);
+  margin: 0.6rem 0 1.4rem;
+  color: var(--primary);
   letter-spacing: 1px;
 }
 
 .message {
-  font-size: 1.125rem;
-  margin: 0.25rem 0 1.25rem;
+  font-size: 1.5rem;
+  font-family: var(--font-montserrat);
+  margin: 0.8rem 0 2rem;
   color: var(--primary);
 }
 
 .link {
   display: inline-block;
-  background: #303b93;
+  background: var(--primary);
   color: #fff;
   text-decoration: none;
-  padding: 0.65rem 1.25rem;
+  padding: 1rem 1.25rem;
   border-radius: 999px;
   font-weight: 700;
+  font-size: 1.5rem;
+  font-family: var(--font-montserrat);
   box-shadow: 0 8px 20px rgba(58, 111, 207, 0.18);
   transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+  /* separação extra em relação ao parágrafo acima */
+  margin-top: 0.6rem;
 }
 
 .link:hover,

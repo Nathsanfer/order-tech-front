@@ -30,12 +30,16 @@
 .form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 25rem;
-  height: 48rem;
-  border-radius: 20px;
   align-items: center;
+  justify-content: flex-start;
+  width: 40rem;
+  min-height: 48rem;
+  border-radius: 28px;
+  padding: 2.25rem 2rem;
+  gap: 1.25rem;
+  align-self: center;
   background-color: var(--color-secondary);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
 }
 
 .img {
@@ -56,7 +60,7 @@
   padding: 2rem;
   border-radius: 15px;
   width: 100%;
-  max-width: 350px;
+  max-width: 420px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -164,6 +168,16 @@
   max-width: 350px;
 }
 
+.bottomArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
 .divider::before {
   content: '';
   position: absolute;
@@ -194,7 +208,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 350px;
+  max-width: 320px; /* wider button to match larger form */
   font-family: var(--font-seymour);
 }
 
