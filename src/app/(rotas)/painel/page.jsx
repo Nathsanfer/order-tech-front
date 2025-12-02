@@ -13,7 +13,7 @@ export default function Page() {
       <header className={styles.header}>
         <div>
           <h1 className={styles.title}>
-            Order <span className={styles.titleSpan}>Tech</span>
+            Order Tech
           </h1>
           <p className={styles.subtitle}>Painel da Cozinha</p>
         </div>
@@ -29,7 +29,7 @@ export default function Page() {
             </div>
 
             <div className={styles.itemGroup}>
-              <p className={styles.itemTitle}>2x Burguer duplo prazer</p>
+              <p className={styles.itemTitle}>2x Big Smash</p>
               <label className={styles.label}>Observações:</label>
               <input className={styles.input} value="Sem Cebola, Sem Picles" readOnly />
             </div>
@@ -51,13 +51,6 @@ export default function Page() {
         ))}
       </div>
 
-      <footer className={styles.footer}>
-        {Array(10)
-          .fill(null)
-          .map((_, i) => (
-            <div key={i} className={styles.footerIcon}></div>
-          ))}
-      </footer>
       <div className={styles.patternBottom}></div>
     </main>
   );
