@@ -44,7 +44,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 40rem;
+  width: 50rem;
   min-height: 48rem;
   border-radius: 28px;
   padding: 2.25rem 2rem;
@@ -356,7 +356,7 @@
   
   .form {
     width: 100%;
-    max-width: 24rem;
+    max-width: 30rem;
     min-height: auto;
     padding: 1.75rem 1.5rem;
     gap: 1.15rem;
@@ -461,7 +461,7 @@
   }
   
   .form {
-    width: 22rem;
+    width: 28rem;
     min-height: 30rem;
     padding: 1.5rem 1.25rem;
     gap: 1.15rem;
@@ -564,7 +564,7 @@
   }
   
   .form {
-    width: 20rem;
+    width: 28rem;
     min-height: 35rem;
     padding: 1rem;
   }
