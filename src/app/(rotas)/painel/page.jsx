@@ -1,3 +1,4 @@
+// ...existing code...
 "use client";
 
 import { useEffect, useState } from "react";
@@ -7,15 +8,41 @@ import Link from "next/link";
 export default function Page() {
   const [pedidos, setPedidos] = useState([]);
 
-  
   useEffect(() => {
-    // Atualiza os pedidos do localStorage a cada 1s
-    const interval = setInterval(() => {
-      const pedidosSalvos = JSON.parse(localStorage.getItem("pedidos") || "[]");
-      setPedidos(pedidosSalvos);
-    }, 1000);
+    const loadPedidos = () => {
+      try {
+        const pedidosSalvos = JSON.parse(localStorage.getItem("pedidos") || "[]");
+        // garante array e ordena do mais recente para o mais antigo
+        const ordenados = Array.isArray(pedidosSalvos)
+          ? pedidosSalvos.slice().sort((a, b) => {
+              const ta = a.criadoEm ? new Date(a.criadoEm).getTime() : Number(a.id) || 0;
+              const tb = b.criadoEm ? new Date(b.criadoEm).getTime() : Number(b.id) || 0;
+              return tb - ta;
+            })
+          : [];
+        setPedidos(ordenados);
+      } catch (e) {
+        console.error("Erro ao carregar pedidos:", e);
+        setPedidos([]);
+      }
+    };
 
-    return () => clearInterval(interval);
+    // carga inicial
+    loadPedidos();
+
+    // atualiza quando outra aba/janela modifica localStorage
+    const onStorage = (e) => {
+      if (e.key === "pedidos") loadPedidos();
+    };
+    window.addEventListener("storage", onStorage);
+
+    // fallback: mantém compatibilidade com atualizações no mesmo contexto
+    const interval = setInterval(loadPedidos, 1000);
+
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -47,7 +74,7 @@ export default function Page() {
             </div>
 
             {/* LISTA DE ITENS DO PEDIDO */}
-            {pedido.itens.map((item, i) => (
+            {(pedido.itens || []).map((item, i) => (
               <div key={i} className={styles.itemGroup}>
                 <p className={styles.itemTitle}>
                   {item.quantidade}x {item.nome}
@@ -71,3 +98,4 @@ export default function Page() {
     </main>
   );
 }
+// ...existing code...
