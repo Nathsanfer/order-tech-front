@@ -169,7 +169,7 @@
   flex-direction: row;
   align-items: center;
   text-align: left;
-  gap: 2rem;
+  gap: 1.2rem;
 }
 
 .produtoCard:hover {
@@ -216,28 +216,410 @@
 }
 
 /* Responsividade */
-@media (max-width: 768px) {
-  .mainContent {
-    flex-direction: column;
+
+/* Mobile - 481px */
+@media (min-width: 481px) {
+  .container {
+    overflow-y: auto;
+    min-height: 100vh;
+  }
+
+  .header {
+    padding: 1rem 1.5rem;
+    position: fixed;
+  }
+
+  .logo h1 {
+    font-size: 1.2rem;
+  }
+
+  .logo p {
+    font-size: 0.65rem;
+  }
+
+  .carrinho {
+    font-size: 1.5rem;
+    padding: 0.35rem;
+  }
+
+  .badgeCarrinho {
+    width: 12px;
+    height: 12px;
+    font-size: 0.5rem;
+    top: -3px;
+    right: -3px;
   }
 
   .sidebar {
     width: 100%;
+    position: fixed;
+    top: 4.5rem;
+    left: 0;
+    height: auto;
+    padding: 0.75rem;
     flex-direction: row;
     overflow-x: auto;
-    padding: 1rem;
+    gap: 0.75rem;
+    z-index: 100;
+    justify-content: center;
   }
 
   .categoriaBtn {
-    min-width: 80px;
+    min-width: 70px;
+    padding: 0.75rem 0.5rem;
+    gap: 0.4rem;
+    font-size: 0.7rem;
   }
 
-  .produtosGrid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+  .categoriaIcon {
+    font-size: 2.5rem;
+    height: 50px;
   }
 
   .content {
+    margin-left: 0;
+    margin-top: 10rem;
     padding: 1rem;
+  }
+
+  .marcaDagua {
+    width: 250px;
+    opacity: 0.3;
+  }
+
+  .tituloCategoria {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .produtosGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .produtoCard {
+    flex-direction: row;
+    padding: 0.85rem;
+    gap: 0.75rem;
+  }
+
+  .produtoImagem {
+    width: 120px;
+    height: 120px;
+  }
+
+  .produtoNome {
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+  }
+
+  .produtoDescricao {
+    font-size: 0.7rem;
+    margin: 0.3rem 0;
+  }
+
+  .produtoPreco {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Tablet - 768px */
+@media (min-width: 768px) {
+  .container {
+    overflow-y: auto;
+    min-height: 100vh;
+  }
+
+  .header {
+    padding: 1.5rem 2.5rem;
+  }
+
+  .logo h1 {
+    font-size: 1.6rem;
+  }
+
+  .logo p {
+    font-size: 0.75rem;
+  }
+
+  .carrinho {
+    font-size: 1.8rem;
+    padding: 0.4rem;
+  }
+
+  .badgeCarrinho {
+    width: 13px;
+    height: 13px;
+    font-size: 0.52rem;
+  }
+
+  .sidebar {
+    width: 180px;
+    position: fixed;
+    top: 5.5rem;
+    left: 0;
+    height: calc(100vh - 5.5rem);
+    padding: 1rem 0.5rem;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 1rem;
+  }
+
+  .categoriaBtn {
+    padding: 0.75rem 0.45rem;
+    gap: 0.45rem;
+    font-size: 0.7rem;
+  }
+
+  .categoriaIcon {
+    font-size: 2.8rem;
+    height: 52px;
+  }
+
+  .content {
+    margin-left: 180px;
+    margin-top: 5.5rem;
+    padding: 1.5rem;
+  }
+
+  .marcaDagua {
+    width: 400px;
+    opacity: 0.35;
+  }
+
+  .tituloCategoria {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .produtosGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .produtoCard {
+    flex-direction: row;
+    padding: 0.85rem;
+    gap: 0.65rem;
+  }
+
+  .produtoImagem {
+    width: 140px;
+    height: 140px;
+  }
+
+  .produtoNome {
+    font-size: 0.8rem;
+    margin: 0.3rem 0;
+  }
+
+  .produtoDescricao {
+    font-size: 0.65rem;
+    margin: 0.3rem 0;
+  }
+
+  .produtoPreco {
+    font-size: 1rem;
+    margin-top: 0.6rem;
+  }
+}
+
+/* Desktop Small - 1024px */
+@media (min-width: 1024px) {
+  .container {
+    overflow-y: auto;
+    min-height: 100vh;
+  }
+
+  .header {
+    padding: 1.75rem 3rem;
+  }
+
+  .logo h1 {
+    font-size: 1.8rem;
+  }
+
+  .logo p {
+    font-size: 0.8rem;
+  }
+
+  .carrinho {
+    font-size: 1.9rem;
+    padding: 0.45rem;
+  }
+
+  .badgeCarrinho {
+    width: 14px;
+    height: 14px;
+    font-size: 0.53rem;
+  }
+
+  .sidebar {
+    width: 220px;
+    position: fixed;
+    top: 6rem;
+    left: 0;
+    height: calc(100vh - 6rem);
+    padding: 1.5rem 0.65rem;
+    flex-direction: column;
+    overflow-y: auto;
+    gap: 1.25rem;
+  }
+
+  .categoriaBtn {
+    padding: 1.1rem 0.7rem;
+    gap: 0.65rem;
+    font-size: 0.95rem;
+  }
+
+  .categoriaIcon {
+    font-size: 4rem;
+    height: 72px;
+  }
+
+  .content {
+    margin-left: 220px;
+    margin-top: 6rem;
+    padding: 1.75rem;
+  }
+
+  .marcaDagua {
+    width: 500px;
+    opacity: 0.38;
+  }
+
+  .tituloCategoria {
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .produtosGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.35rem;
+  }
+
+  .produtoCard {
+    flex-direction: row;
+    padding: 1.35rem;
+    gap: 1.1rem;
+  }
+
+  .produtoImagem {
+    width: 230px;
+    height: 230px;
+  }
+
+  .produtoNome {
+    font-size: 1.05rem;
+    margin: 0.45rem 0;
+  }
+
+  .produtoDescricao {
+    font-size: 0.82rem;
+    margin: 0.45rem 0;
+  }
+
+  .produtoPreco {
+    font-size: 1.35rem;
+    margin-top: 0.85rem;
+  }
+}
+
+/* Desktop Medium - 1280px */
+@media (min-width: 1280px) {
+  .container {
+    min-height: 100vh;
+  }
+
+  .header {
+    padding: 2rem 4rem;
+  }
+
+  .logo h1 {
+    font-size: 2rem;
+  }
+
+  .logo p {
+    font-size: 0.875rem;
+  }
+
+  .carrinho {
+    font-size: 2rem;
+    padding: 0.5rem;
+  }
+
+  .badgeCarrinho {
+    width: 15px;
+    height: 15px;
+    font-size: 0.55rem;
+    top: -5px;
+    right: -5px;
+  }
+
+  .sidebar {
+    width: 260px;
+    top: 6rem;
+    height: calc(100vh - 6rem);
+    padding: 5.5rem 0.75rem 2rem;
+    gap: 1.5rem;
+  }
+
+  .categoriaBtn {
+    padding: 1rem 0.65rem;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .categoriaIcon {
+    font-size: 3.5rem;
+    height: 42px;
+  }
+
+  .content {
+    margin-left: 260px;
+    margin-top: 6.5rem;
+    padding: 2rem;
+  }
+
+  .marcaDagua {
+    width: 600px;
+    opacity: 0.4;
+  }
+
+  .tituloCategoria {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .produtosGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .produtoCard {
+    padding: 1.5rem;
+    gap: 1.2rem;
+  }
+
+  .produtoImagem {
+    width: 280px;
+    height: 280px;
+  }
+
+  .produtoNome {
+    font-size: 1.125rem;
+    margin: 0.5rem 0;
+  }
+
+  .produtoDescricao {
+    font-size: 0.875rem;
+    margin: 0.5rem 0;
+  }
+
+  .produtoPreco {
+    font-size: 1.5rem;
+    margin-top: 1rem;
   }
 }
