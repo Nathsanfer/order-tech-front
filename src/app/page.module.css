@@ -11,7 +11,7 @@
     background-repeat: repeat-y;
     background-size: contain;
     background-position: center;
-    width: 600px;
+    width: 500px;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -27,6 +27,18 @@
   padding: 2rem;
 }
 
+.containerRightMirror {
+  background-image: url('/images/albertos.png');
+  background-repeat: repeat-y;
+  background-size: contain;
+  background-position: center;
+  width: 500px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -40,10 +52,6 @@
   align-self: center;
   background-color: var(--color-secondary);
   box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-}
-
-.img {
-  display: none; 
 }
 
 .welcomeText {
@@ -219,31 +227,415 @@
 }
 
 /* Responsividade */
-@media (max-width: 480px) {
+
+/* Mobile - 481px */
+@media (min-width: 481px) {
   .container {
+    overflow-y: hidden;
+    height: 100vh;
+    flex-direction: column;
+  }
+
+  .containerLeft {
+    display: none;
+  }
+
+  .containerRight {
     padding: 1rem;
   }
-  
-  .loginCard {
-    padding: 1.5rem;
-    max-width: 300px;
+
+  .containerRightMirror {
+    display: none;
   }
   
+  .form {
+    width: 100%;
+    max-width: 18rem;
+    min-height: auto;
+    padding: 1.25rem 0.85rem;
+    gap: 0.85rem;
+  }
+
+  .characterContainer {
+    display: none;
+  }
+
   .welcomeText {
-    font-size: 1.25rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .loginCard {
+    padding: 0.85rem;
+    max-width: 100%;
+  }
+
+  .loginTitle {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .loginForm {
+    gap: 0.5rem;
+  }
+
+  .label {
+    font-size: 0.65rem;
+  }
+
+  .input {
+    font-size: 0.8rem;
+    padding: 0.4rem;
   }
   
   .checkboxContainer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .loginButton {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.5rem;
+  }
+
+  .rememberMe {
+    font-size: 0.60rem;
+  }
+
+  .forgotPassword {
+    font-size: 0.55rem;
+  }
+
+  .divider {
+    max-width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  .divider::before {
+    height: 1px;
+  }
+
+  .divider span {
+    font-size: 0.65rem;
+    padding: 0 0.6rem;
+  }
+  
+  .createAccountButton {
+    max-width: 100%;
+    font-size: 0.8rem;
+    padding: 0.6rem 1.25rem;
+    font-weight: 500;
+  }
+}
+
+/* Tablet - 768px */
+@media (min-width: 768px) {
+  .container {
+    overflow-y: hidden;
+    height: 100vh;
+    flex-direction: row;
+  }
+
+  .containerLeft {
+    display: flex;
+    width: 200px;
+  }
+
+  .containerRight {
+    padding: 1.5rem;
+  }
+
+  .containerRightMirror {
+    display: flex;
+    width: 200px;
+  }
+  
+  .form {
+    width: 100%;
+    max-width: 24rem;
+    min-height: auto;
+    padding: 1.75rem 1.5rem;
+    gap: 1.15rem;
+  }
+
+  .characterContainer {
+    display: none;
+  }
+
+  .welcomeText {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .loginCard {
+    padding: 1.25rem;
+    max-width: 100%;
+  }
+
+  .loginTitle {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+
+  .loginForm {
+    gap: 0.85rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+  }
+
+  .input {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
+  
+  .checkboxContainer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .loginButton {
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.65rem;
+  }
+
+  .rememberMe {
+    font-size: 0.70rem;
+  }
+
+  .forgotPassword {
+    font-size: 0.65rem;
+  }
+
+  .divider {
+    max-width: 100%;
+    margin: 0.85rem 0;
+  }
+
+  .divider::before {
+    height: 1px;
+  }
+
+  .divider span {
+    font-size: 0.8rem;
+    padding: 0 0.8rem;
+  }
+  
+  .createAccountButton {
+    max-width: 100%;
+    font-size: 0.95rem;
+    padding: 0.8rem 1.75rem;
+    font-weight: 500;
+  }
+}
+
+/* Desktop Small - 1024px */
+@media (min-width: 1024px) {
+  .container {
+    overflow-y: hidden;
+    height: 100vh;
+    flex-direction: row;
+  }
+
+  .containerLeft {
+    display: flex;
+    width: 200px;
+  }
+
+  .containerRight {
+    padding: 1.75rem;
+  }
+
+  .containerRightMirror {
+    display: flex;
+    width: 200px;
+  }
+  
+  .form {
+    width: 22rem;
+    min-height: 30rem;
+    padding: 1.5rem 1.25rem;
+    gap: 1.15rem;
+  }
+
+  .characterContainer {
+    display: block;
+  }
+
+  .character {
+    width: 100px;
+    height: 100px;
+  }
+
+  .welcomeText {
+    font-size: 0.8rem;
+    margin-top: -0.6rem;
+    margin-bottom: -0.3rem;
+  }
+
+  .loginCard {
+    padding: 0.8rem;
+  }
+
+  .loginTitle {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .loginForm {
+    gap: 0.4rem;
+    margin-top: -0.5rem;
+  }
+
+  .label {
+    font-size: 0.6rem;
+  }
+
+  .input {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
+  
+  .checkboxContainer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .loginButton {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.55rem;
+  }
+
+  .rememberMe {
+    font-size: 0.68rem;
+  }
+
+  .forgotPassword {
+    font-size: 0.63rem;
+  }
+
+  .divider {
+    max-width: 300px;
+    margin: 0 0;
+  }
+
+  .divider::before {
+    height: 1px;
+  }
+
+  .divider span {
+    font-size: 0.6rem;
+    padding: 0 0.75rem;
   }
   
   .createAccountButton {
     max-width: 300px;
+    font-size: 0.8rem;
+    padding: 0.55rem 1.6rem;
+    font-weight: 500;
+  }
+}
+
+/* Desktop Medium - 1280px */
+@media (min-width: 1280px) {
+  .container {
+    overflow-y: hidden;
+    height: 100vh;
+  }
+
+  .containerLeft {
+    width: 350px;
+  }
+
+  .containerRightMirror {
+    width: 350px;
   }
   
+  .form {
+    width: 20rem;
+    min-height: 35rem;
+    padding: 1rem;
+  }
+
+  .welcomeText {
+    font-size: 1rem;
+    margin-top: -1rem;
+  }
+
+  .loginCard {
+    padding: 1rem;
+  }
+
+  .loginTitle {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .loginForm {
+    gap: 0.65rem;
+    margin-top: -1rem;
+  }
+
+  .label {
+    font-size: 0.7rem;
+  }
+
+  .input {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+  
+  .checkboxContainer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .loginButton {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.50rem;
+  }
+
+  .rememberMe {
+    font-size: 0.65rem;
+  }
+
+  .forgotPassword {
+    font-size: 0.60rem;
+  }
+
   .divider {
     max-width: 300px;
+    margin: 0.5rem 0;
+  }
+
+  .divider::before {
+    height: 1px;
+  }
+
+  .divider span {
+    font-size: 0.75rem;
+    padding: 0 0.75rem;
+  }
+  
+  .createAccountButton {
+    max-width: 300px;
+    font-size: 0.9rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
   }
 }

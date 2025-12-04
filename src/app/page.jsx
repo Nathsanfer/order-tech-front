@@ -36,8 +36,8 @@ export default function Login() {
             <Image
               src="/images/albertopng.png"
               alt="Personagem Alberto"
-              width={160}
-              height={140}
+              width={120}
+              height={120}
               className={styles.character}
               priority
             />
@@ -110,6 +110,9 @@ export default function Login() {
           </button>
         </div>
 
+      </div>
+
+      <div className={styles.containerRightMirror}>
       </div>
 
     </div>
