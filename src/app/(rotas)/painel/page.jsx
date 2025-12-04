@@ -1,13 +1,22 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./painel.module.css";
 import Link from "next/link";
 
 export default function Page() {
-  const pedidos = [
-    { id: 12233 },
-    { id: 12234 },
-    { id: 12235 },
-    { id: 12236 },
-  ];
+  const [pedidos, setPedidos] = useState([]);
+
+  
+  useEffect(() => {
+    // Atualiza os pedidos do localStorage a cada 1s
+    const interval = setInterval(() => {
+      const pedidosSalvos = JSON.parse(localStorage.getItem("pedidos") || "[]");
+      setPedidos(pedidosSalvos);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <main className={styles.container}>
@@ -17,35 +26,41 @@ export default function Page() {
           <p>Painel da Cozinha</p>
         </div>
         <div className={styles.headerButtons}>
-          <Link href="/senhas" className={styles.senhasBtn}>Senhas</Link>
+          <Link href="/senhas" className={styles.senhasBtn}>
+            Senhas
+          </Link>
         </div>
       </header>
 
       <div className={styles.cardsWrapper}>
+        {pedidos.length === 0 && (
+          <p style={{ color: "#fff", textAlign: "center", fontSize: 20 }}>
+            Nenhum pedido no momento...
+          </p>
+        )}
+
         {pedidos.map((pedido, index) => (
           <div key={pedido.id} className={styles.card}>
             <div className={styles.cardHeader}>
-              <h2 className={styles.cardTitle}>#{pedido.id}</h2>
+              <h2 className={styles.cardTitle}>Senha {pedido.senha}</h2>
               <div className={styles.badge}>{index + 1}</div>
             </div>
 
-            <div className={styles.itemGroup}>
-              <p className={styles.itemTitle}>2x Big Smash</p>
-              <label className={styles.label}>Observações:</label>
-              <input className={styles.input} value="Sem Cebola, Sem Picles" readOnly />
-            </div>
+            {/* LISTA DE ITENS DO PEDIDO */}
+            {pedido.itens.map((item, i) => (
+              <div key={i} className={styles.itemGroup}>
+                <p className={styles.itemTitle}>
+                  {item.quantidade}x {item.nome}
+                </p>
 
-            <div className={styles.itemGroup}>
-              <p className={styles.itemTitle}>1x Grande Batata com cheddar e bacon</p>
-              <label className={styles.label}>Observações:</label>
-              <input className={styles.input} value="Null" readOnly />
-            </div>
-
-            <div className={styles.itemGroup}>
-              <p className={styles.itemTitle}>2x Churros</p>
-              <label className={styles.label}>Observações:</label>
-              <input className={styles.input} value="Null" readOnly />
-            </div>
+                <label className={styles.label}>Observações:</label>
+                <input
+                  className={styles.input}
+                  value={item.observacoes || "Nenhuma"}
+                  readOnly
+                />
+              </div>
+            ))}
 
             <button className={styles.finalizadoBtn}>Finalizado!</button>
           </div>

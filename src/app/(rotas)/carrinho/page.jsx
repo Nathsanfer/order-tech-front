@@ -1,3 +1,4 @@
+// ...existing code...
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -7,6 +8,7 @@ import { FaPix } from 'react-icons/fa6';
 import CustomAlert from '../../components/CustomAlert';
 import CustomConfirm from '../../components/CustomConfirm';
 import styles from './carrinho.module.css';
+
 
 const CarrinhoPage = () => {
   const router = useRouter();
@@ -88,27 +90,63 @@ const CarrinhoPage = () => {
 
   const handleFinalizarPedido = () => {
     if (itensCarrinho.length === 0) {
-      showAlert('Seu carrinho está vazio!\nAdicione produtos antes de finalizar o pedido.', 'warning');
+      showAlert('Seu carrinho está vazio!\nAdicione produtos antes de finalizar.', 'warning');
       return;
     }
-    
+
     if (!metodoPagamento) {
       showAlert('Por favor, selecione uma forma de pagamento', 'warning');
       return;
     }
-    
-    // Aqui você implementaria a lógica de finalização
-    console.log('Finalizando pedido com:', metodoPagamento);
-    console.log('Itens:', itensCarrinho);
-    console.log('Total:', valorTotal);
-    
-    // Limpar carrinho após finalizar
+
+    // Gera nova senha incremental
+    let ultimaSenha = Number(localStorage.getItem('ultimaSenha') || 0) + 1;
+    localStorage.setItem('ultimaSenha', ultimaSenha);
+
+    const senha = String(ultimaSenha).padStart(3, '0');
+
+    // Preparar mensagem de confirmação com valor total formatado
+    const valorFormatado = valorTotal.toFixed(2).replace('.', ',');
+
     showConfirm(
-      `Confirmar pedido no valor de R$ ${valorTotal.toFixed(2).replace('.', ',')}?`,
+      `Confirmar pedido no valor de R$ ${valorFormatado}?`,
       () => {
+        // Salva o pedido em localStorage na chave "pedidos" para o painel da cozinha
+        try {
+          const pedidosAtuais = JSON.parse(localStorage.getItem('pedidos') || '[]');
+
+          // Mapear itens para o formato esperado pelo painel (nome, quantidade, observacoes)
+          const itensParaPedido = itensCarrinho.map(item => ({
+            nome: item.nome,
+            quantidade: item.quantidade,
+            observacoes: item.observacoes || ''
+          }));
+
+          const novoPedido = {
+            id: String(Date.now()),
+            senha,
+            itens: itensParaPedido,
+            metodoPagamento,
+            valorTotal,
+            criadoEm: new Date().toISOString()
+          };
+
+          pedidosAtuais.push(novoPedido);
+          localStorage.setItem('pedidos', JSON.stringify(pedidosAtuais));
+        } catch (e) {
+          console.error('Erro ao salvar pedido em localStorage:', e);
+        }
+
+        // Limpar carrinho após salvar o pedido
         atualizarCarrinho([]);
         closeConfirm();
-        showAlert('Pedido finalizado com sucesso! 🎉\n\nSeu pedido está sendo preparado!', 'success', true);
+
+        // Mostrar senha para o cliente e redirecionar para home
+        showAlert(
+          `Pedido finalizado com sucesso! 🎉\nSua senha é: ${senha}`,
+          'success',
+          true
+        );
       }
     );
   };
