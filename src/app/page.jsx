@@ -18,9 +18,8 @@ export default function Login() {
   };
 
   const handleCreateAccount = () => {
-    // Navegação para criar conta
-    console.log("Criar nova conta");
-  };
+  router.push("/cadastro");  // ← Adicione esta linha
+};
 
   return (
     <div className={styles.container}>
@@ -108,6 +107,8 @@ export default function Login() {
           <button onClick={handleCreateAccount} className={styles.createAccountButton}>
             Criar Conta
           </button>
+
+          
         </div>
 
       </div>
