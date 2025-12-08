@@ -11,6 +11,7 @@ export default function DetalheProduto() {
   const router = useRouter();
   const [produto, setProduto] = useState(null);
   const [quantidade, setQuantidade] = useState(1);
+  const [observacoes, setObservacoes] = useState('');
   const [loading, setLoading] = useState(true);
   const [alert, setAlert] = useState(null);
 
@@ -139,10 +140,14 @@ export default function DetalheProduto() {
     
     if (itemExistente) {
       itemExistente.quantidade += quantidade;
+      if (observacoes) {
+        itemExistente.observacoes = (itemExistente.observacoes || '') + (itemExistente.observacoes ? ' | ' : '') + observacoes;
+      }
     } else {
       carrinho.push({
         ...produto,
-        quantidade
+        quantidade,
+        observacoes: observacoes || ''
       });
     }
     
@@ -153,13 +158,21 @@ export default function DetalheProduto() {
     
     // Mensagem de sucesso mais amigável
     const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
-    showAlert(
-      `✅ ${quantidade}x ${produto.nome} adicionado!\n\nTotal de itens no carrinho: ${totalItens}`,
-      'success'
-    );
     
-    // Resetar quantidade para 1
+    // Monta a mensagem com as observações se existirem
+    let mensagem = `✅ ${quantidade}x ${produto.nome} adicionado!`;
+    
+    if (observacoes) {
+      mensagem += `\n\n📝 Observações: ${observacoes}`;
+    }
+    
+    mensagem += `\n\nTotal de itens no carrinho: ${totalItens}`;
+    
+    showAlert(mensagem, 'success');
+    
+    // Resetar quantidade e observações
     setQuantidade(1);
+    setObservacoes('');
     
     // Opcional: redirecionar ou manter na página
     // router.push('/cardapio');
@@ -282,6 +295,25 @@ export default function DetalheProduto() {
             
             <div className={styles.produtoPreco}>
               R$ {produto.preco.toFixed(2).replace('.', ',')}
+            </div>
+
+            {/* Campo de Observações */}
+            <div className={styles.observacoesContainer}>
+              <label htmlFor="observacoes" className={styles.observacoesLabel}>
+                Observações (opcional):
+              </label>
+              <textarea
+                id="observacoes"
+                className={styles.observacoesTextarea}
+                placeholder="Ex: Sem cebola, sem tomate..."
+                value={observacoes}
+                onChange={(e) => setObservacoes(e.target.value)}
+                rows={3}
+                maxLength={200}
+              />
+              <span className={styles.caracteresRestantes}>
+                {observacoes.length}/200 caracteres
+              </span>
             </div>
 
             {/* Controle de Quantidade e Botão Adicionar */}
