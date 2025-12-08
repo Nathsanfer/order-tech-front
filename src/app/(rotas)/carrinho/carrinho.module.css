@@ -293,8 +293,10 @@
   font-weight: 600;
   padding: 1rem 0;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
   border-bottom: 1px solid #e8dfc0;
   font-family: var(--font-montserrat);
 }
@@ -305,13 +307,22 @@
 
 .itemInfo {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
 }
 
 .itemNome {
-  flex: 1;
   font-weight: 600;
+  color: #333;
+}
+
+.itemObservacoes {
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+  padding-left: 0.25rem;
+  line-height: 1.4;
 }
 
 .itemPreco {

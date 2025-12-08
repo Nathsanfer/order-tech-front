@@ -297,6 +297,11 @@ const CarrinhoPage = () => {
                     <li key={item.id} className={styles.itemPedido}>
                       <div className={styles.itemInfo}>
                         <span className={styles.itemNome}>{item.nome}</span>
+                        {item.observacoes && (
+                          <span className={styles.itemObservacoes}>
+                            📝 {item.observacoes}
+                          </span>
+                        )}
                         <span className={styles.itemPreco}>
                           R$ {(item.preco * item.quantidade).toFixed(2).replace('.', ',')}
                         </span>
