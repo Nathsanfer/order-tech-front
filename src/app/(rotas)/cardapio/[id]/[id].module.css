@@ -253,87 +253,354 @@
 }
 
 /* Responsividade */
-@media (max-width: 1200px) {
-  .sidebar {
-    width: 400px;
-  }
 
-  .quadriculadoArea {
-    right: 400px;
-  }
-
-  .imageArea {
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: center;
-    padding-left: 0;
-  }
-
-  .produtoImage {
-    margin-left: 0;
-  }
-
-  .albertoImg {
-    max-width: 250px;
-  }
-
-  .produtoImg {
-    max-width: 350px;
-  }
-}
-
-@media (max-width: 768px) {
+/* Mobile - 481px */
+@media (min-width: 481px) {
   .container {
     flex-direction: column;
+    overflow-y: auto;
   }
 
   .mainContent {
     padding: 1rem;
   }
 
-  .sidebar {
-    width: 100%;
-    padding: 1.5rem;
-  }
-
-  .quadriculadoArea {
-    position: relative;
-    right: 0;
-    height: 200px;
-    margin-top: 2rem;
+  .voltarBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
   }
 
   .imageArea {
+    flex-direction: column;
+    gap: 0.5rem;
     min-height: auto;
+    margin-bottom: 1rem;
   }
 
-  .albertoImg {
-    max-width: 150px;
+  .logoAlberto {
+    display: none;
+  }
+
+  .produtoImage {
+    margin-left: 0;
   }
 
   .produtoImg {
-    max-width: 250px;
+    max-width: 200px;
+  }
+
+  .albertosArea {
+    height: 100px;
+  }
+
+  .albertosImg {
+    height: 100px;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 1.25rem;
+  }
+
+  .sidebarTitle {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .produtoNome {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .produtoDescricao {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .produtoPreco {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .quantidadeBtn {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+
+  .quantidadeValor {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .adicionarBtn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet - 768px */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .mainContent {
+    padding: 1.5rem;
+  }
+
+  .voltarBtn {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .imageArea {
+    flex-direction: row;
+    gap: 1rem;
+    min-height: 350px;
+    margin-bottom: 1.5rem;
+  }
+
+  .logoAlberto {
+    display: block;
+  }
+
+  .albertoImg {
+    max-width: 280px;
+  }
+
+  .produtoImage {
+    margin-left: -150px;
+  }
+
+  .produtoImg {
+    max-width: 350px;
+  }
+
+  .albertosArea {
+    height: 140px;
+  }
+
+  .albertosImg {
+    height: 140px;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 1.75rem 2rem;
+  }
+
+  .sidebarTitle {
+    font-size: 1.9rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
   }
 
   .produtoNome {
     font-size: 1.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .produtoDescricao {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
   }
 
   .produtoPreco {
-    font-size: 1.75rem;
+    font-size: 1.65rem;
+    margin-bottom: 1.5rem;
   }
 
-  .quantidadeControl {
-    flex-direction: column;
-    gap: 1rem;
+  .quantidadeBtn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.35rem;
   }
 
-  .quantidadeWrapper {
-    width: 100%;
-    justify-content: center;
+  .quantidadeValor {
+    font-size: 1.1rem;
+    padding: 0.45rem 0.9rem;
   }
 
   .adicionarBtn {
-    width: 100%;
+    padding: 0.8rem 1.35rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop Small - 1024px */
+@media (min-width: 1024px) {
+  .container {
+    flex-direction: row;
+    overflow-y: hidden;
+  }
+
+  .mainContent {
+    padding: 1.75rem;
+  }
+
+  .voltarBtn {
+    padding: 0.7rem 1.35rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .imageArea {
+    flex-direction: row;
+    gap: 0;
+    min-height: 420px;
+    margin-bottom: 1.75rem;
+  }
+
+  .albertoImg {
+    max-width: 450px;
+  }
+
+  .produtoImage {
+    margin-left: -250px;
+  }
+
+  .produtoImg {
+    max-width: 550px;
+  }
+
+  .albertosArea {
+    height: 160px;
+  }
+
+  .albertosImg {
+    height: 160px;
+  }
+
+  .sidebar {
+    width: 450px;
+    padding: 1.85rem 2.2rem;
+  }
+
+  .sidebarTitle {
+    font-size: 2.1rem;
+    margin-top: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .produtoNome {
+    font-size: 1.7rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .produtoDescricao {
+    font-size: 1.1rem;
+    margin-bottom: 1.3rem;
+  }
+
+  .produtoPreco {
+    font-size: 1.8rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .quantidadeBtn {
+    width: 43px;
+    height: 43px;
+    font-size: 1.4rem;
+  }
+
+  .quantidadeValor {
+    font-size: 1.15rem;
+    padding: 0.475rem 0.95rem;
+  }
+
+  .adicionarBtn {
+    padding: 0.825rem 1.4rem;
+    font-size: 0.975rem;
+  }
+}
+
+/* Desktop Medium - 1280px */
+@media (min-width: 1280px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .mainContent {
+    padding: 2rem;
+  }
+
+  .voltarBtn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .imageArea {
+    min-height: 500px;
+    margin-bottom: 2rem;
+  }
+
+  .albertoImg {
+    max-width: 400px;
+    margin-top: 2rem;
+  }
+
+  .produtoImage {
+    margin-left: -350px;
+  }
+
+  .produtoImg {
+    max-width: 700px;
+  }
+
+  .albertosArea {
+    height: 200px;
+  }
+
+  .albertosImg {
+    height: 2
+    100px;
+  }
+
+  .sidebar {
+    width: 550px;
+    padding: 2rem 2.5rem;
+  }
+
+  .sidebarTitle {
+    font-size: 2.5rem;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+  }
+
+  .produtoNome {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .produtoDescricao {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .produtoPreco {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .quantidadeBtn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+
+  .quantidadeValor {
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .adicionarBtn {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
   }
 }

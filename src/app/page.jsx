@@ -18,8 +18,8 @@ export default function Login() {
   };
 
   const handleCreateAccount = () => {
-  router.push("/cadastro");  // ← Adicione esta linha
-};
+    router.push("/cadastro");
+  };
 
   return (
     <div className={styles.container}>
