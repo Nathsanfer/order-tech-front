@@ -12,15 +12,17 @@ export default function Page() {
     const loadPedidos = () => {
       try {
         const pedidosSalvos = JSON.parse(localStorage.getItem("pedidos") || "[]");
-        // garante array e ordena do mais recente para o mais antigo
-        const ordenados = Array.isArray(pedidosSalvos)
-          ? pedidosSalvos.slice().sort((a, b) => {
-              const ta = a.criadoEm ? new Date(a.criadoEm).getTime() : Number(a.id) || 0;
-              const tb = b.criadoEm ? new Date(b.criadoEm).getTime() : Number(b.id) || 0;
-              return tb - ta;
-            })
+        // Filtra apenas pedidos "em preparo" para o painel da cozinha
+        const emPreparo = Array.isArray(pedidosSalvos)
+          ? pedidosSalvos
+              .filter(p => !p.status || p.status.toLowerCase() !== "finalizado")
+              .sort((a, b) => {
+                const ta = a.criadoEm ? new Date(a.criadoEm).getTime() : Number(a.id) || 0;
+                const tb = b.criadoEm ? new Date(b.criadoEm).getTime() : Number(b.id) || 0;
+                return tb - ta;
+              })
           : [];
-        setPedidos(ordenados);
+        setPedidos(emPreparo);
       } catch (e) {
         console.error("Erro ao carregar pedidos:", e);
         setPedidos([]);
@@ -44,6 +46,28 @@ export default function Page() {
       clearInterval(interval);
     };
   }, []);
+
+  const handleFinalizar = (pedidoId) => {
+    try {
+      const pedidosSalvos = JSON.parse(localStorage.getItem("pedidos") || "[]");
+      const pedidosAtualizados = pedidosSalvos.map(p => 
+        p.id === pedidoId ? { ...p, status: "finalizado" } : p
+      );
+      localStorage.setItem("pedidos", JSON.stringify(pedidosAtualizados));
+      
+      // Atualiza apenas para mostrar pedidos "em preparo" no painel
+      const emPreparo = pedidosAtualizados
+        .filter(p => !p.status || p.status.toLowerCase() !== "finalizado")
+        .sort((a, b) => {
+          const ta = a.criadoEm ? new Date(a.criadoEm).getTime() : Number(a.id) || 0;
+          const tb = b.criadoEm ? new Date(b.criadoEm).getTime() : Number(b.id) || 0;
+          return tb - ta;
+        });
+      setPedidos(emPreparo);
+    } catch (e) {
+      console.error("Erro ao finalizar pedido:", e);
+    }
+  };
 
   return (
     <main className={styles.container}>
@@ -89,7 +113,12 @@ export default function Page() {
               </div>
             ))}
 
-            <button className={styles.finalizadoBtn}>Finalizado!</button>
+            <button 
+              className={styles.finalizadoBtn}
+              onClick={() => handleFinalizar(pedido.id)}
+            >
+              Finalizado!
+            </button>
           </div>
         ))}
       </div>
