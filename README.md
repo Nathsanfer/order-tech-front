@@ -4,6 +4,15 @@ Aplicação frontend em Next.js para o projeto OrderTech — interface para visu
 
 Este repositório contém a UI (parte frontend) do OrderTech. O frontend consome uma API (backend) responsável por gerenciar itens do cardápio, usuários e pedidos. Este README explica como clonar, configurar e rodar o projeto localmente.
 
+---
+
+## 🎥 Demonstração
+
+https://github.com/user-attachments/assets/d091b4e6-e902-4e0c-8e7e-89ec81bdf88c
+
+---
+
+
 ## Tecnologias
 
 - **Framework:** Next.js 13+ (app router)
